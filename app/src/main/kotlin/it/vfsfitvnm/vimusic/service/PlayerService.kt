@@ -538,7 +538,9 @@ class PlayerService : InvincibleService(), Player.Listener, PlaybackStatsListene
 
     private fun maybeShowSongCoverInLockScreen() {
         val bitmap =
-            if (isAtLeastAndroid13 || isShowingThumbnailInLockscreen) bitmapProvider.bitmap else null
+            if ((isAtLeastAndroid13 || isShowingThumbnailInLockscreen) && bitmapProvider.bitmap.isRecycled) {
+                bitmapProvider.bitmap
+            } else null
 
         metadataBuilder.putBitmap(MediaMetadata.METADATA_KEY_ART, bitmap)
 

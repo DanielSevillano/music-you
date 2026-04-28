@@ -46,9 +46,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.media3.common.C
 import androidx.media3.common.MediaMetadata
 import com.github.innertube.Innertube
@@ -286,9 +288,12 @@ fun Lyrics(
                         itemsIndexed(items = synchronizedLyrics.sentences) { index, sentence ->
                             Text(
                                 text = sentence.second,
-                                style = MaterialTheme.typography.titleMedium,
                                 color = Color.White,
                                 textAlign = TextAlign.Center,
+                                fontSize = 20.sp,
+                                fontWeight = if (index == synchronizedLyrics.index)
+                                    FontWeight.SemiBold
+                                else FontWeight.Normal,
                                 modifier = Modifier
                                     .padding(vertical = 4.dp, horizontal = 32.dp)
                                     .alpha(if (index == synchronizedLyrics.index) 1F else Dimensions.mediumOpacity)
@@ -298,9 +303,9 @@ fun Lyrics(
                 } else {
                     Text(
                         text = text,
-                        style = MaterialTheme.typography.bodyLarge,
                         color = Color.White,
                         textAlign = TextAlign.Center,
+                        fontSize = 20.sp,
                         modifier = Modifier
                             .verticalFadingEdge()
                             .verticalScroll(rememberScrollState())

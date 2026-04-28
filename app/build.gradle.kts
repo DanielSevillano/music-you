@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 plugins {
     alias(libs.plugins.android.application)
@@ -9,8 +9,7 @@ plugins {
 
 kotlin {
     compilerOptions {
-        languageVersion = org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_3
-        jvmTarget = JvmTarget.fromTarget("17")
+        languageVersion = KotlinVersion.KOTLIN_2_3
         freeCompilerArgs.addAll(
             "-Xcontext-parameters",
             "-Xannotation-default-target=param-property"
@@ -20,7 +19,7 @@ kotlin {
 
 android {
     namespace = "com.github.musicyou"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.github.musicyou"

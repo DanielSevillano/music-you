@@ -12,7 +12,6 @@ import android.service.media.MediaBrowserService
 import androidx.annotation.DrawableRes
 import androidx.annotation.OptIn
 import androidx.core.net.toUri
-import androidx.core.os.bundleOf
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.datasource.cache.Cache
@@ -69,7 +68,9 @@ class PlayerMediaBrowserService : MediaBrowserService(), ServiceConnection {
             bindService(intent<PlayerService>(), this, BIND_AUTO_CREATE)
             BrowserRoot(
                 MediaId.ROOT,
-                bundleOf("android.media.browse.CONTENT_STYLE_BROWSABLE_HINT" to 1)
+                Bundle().apply {
+                    putInt("android.media.browse.CONTENT_STYLE_BROWSABLE_HINT", 1)
+                }
             )
         } else null
     }

@@ -2,9 +2,9 @@ package com.github.musicyou.utils
 
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.text.format.DateUtils
 import androidx.core.net.toUri
-import androidx.core.os.bundleOf
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import com.github.innertube.Innertube
@@ -25,12 +25,18 @@ val Innertube.SongItem.asMediaItem: MediaItem
                 .setAlbumTitle(album?.name)
                 .setArtworkUri(thumbnail?.url?.toUri())
                 .setExtras(
-                    bundleOf(
-                        "albumId" to album?.endpoint?.browseId,
-                        "durationText" to durationText,
-                        "artistNames" to authors?.filter { it.endpoint != null }?.mapNotNull { it.name },
-                        "artistIds" to authors?.mapNotNull { it.endpoint?.browseId },
-                    )
+                    Bundle().apply {
+                        putString("albumId", album?.endpoint?.browseId)
+                        putString("durationText", durationText)
+                        putStringArrayList(
+                            "artistNames",
+                            authors?.filter { it.endpoint != null }?.mapNotNull { it.name }
+                                ?.let { ArrayList(it) })
+                        putStringArrayList(
+                            "artistIds",
+                            authors?.mapNotNull { it.endpoint?.browseId }
+                                ?.let { ArrayList(it) })
+                    }
                 )
                 .build()
         )
@@ -48,11 +54,17 @@ val Innertube.VideoItem.asMediaItem: MediaItem
                 .setArtist(authors?.joinToString("") { it.name ?: "" })
                 .setArtworkUri(thumbnail?.url?.toUri())
                 .setExtras(
-                    bundleOf(
-                        "durationText" to durationText,
-                        "artistNames" to if (isOfficialMusicVideo) authors?.filter { it.endpoint != null }?.mapNotNull { it.name } else null,
-                        "artistIds" to if (isOfficialMusicVideo) authors?.mapNotNull { it.endpoint?.browseId } else null,
-                    )
+                    Bundle().apply {
+                        putString("durationText", durationText)
+                        putStringArrayList(
+                            "artistNames",
+                            if (isOfficialMusicVideo) authors?.filter { it.endpoint != null }
+                                ?.mapNotNull { it.name }?.let { ArrayList(it) } else null)
+                        putStringArrayList(
+                            "artistIds", if (isOfficialMusicVideo) authors
+                                ?.mapNotNull { it.endpoint?.browseId }
+                                ?.let { ArrayList(it) } else null)
+                    }
                 )
                 .build()
         )
@@ -67,9 +79,9 @@ val Song.asMediaItem: MediaItem
                 .setArtist(artistsText)
                 .setArtworkUri(thumbnailUrl?.toUri())
                 .setExtras(
-                    bundleOf(
-                        "durationText" to durationText
-                    )
+                    Bundle().apply {
+                        putString("durationText", durationText)
+                    }
                 )
                 .build()
         )

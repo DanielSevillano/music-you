@@ -2,9 +2,9 @@ package com.github.musicyou.ui.components
 
 import android.content.Intent
 import androidx.activity.compose.BackHandler
+import androidx.annotation.OptIn
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentTransitionScope
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Arrangement
@@ -50,6 +50,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.media3.common.MediaItem
+import androidx.media3.common.util.UnstableApi
 import com.github.innertube.models.NavigationEndpoint
 import com.github.musicyou.LocalPlayerServiceBinder
 import com.github.musicyou.R
@@ -71,8 +72,7 @@ import com.github.musicyou.utils.rememberPreference
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-@androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
-@ExperimentalAnimationApi
+@OptIn(UnstableApi::class)
 @Composable
 fun InHistoryMediaItemMenu(
     onDismiss: () -> Unit,
@@ -110,7 +110,6 @@ fun InHistoryMediaItemMenu(
     )
 }
 
-@ExperimentalAnimationApi
 @Composable
 fun InPlaylistMediaItemMenu(
     onDismiss: () -> Unit,
@@ -136,7 +135,6 @@ fun InPlaylistMediaItemMenu(
     )
 }
 
-@ExperimentalAnimationApi
 @Composable
 fun NonQueuedMediaItemMenu(
     onDismiss: () -> Unit,
@@ -174,7 +172,6 @@ fun NonQueuedMediaItemMenu(
     )
 }
 
-@ExperimentalAnimationApi
 @Composable
 fun QueuedMediaItemMenu(
     onDismiss: () -> Unit,
@@ -198,7 +195,6 @@ fun QueuedMediaItemMenu(
     )
 }
 
-@ExperimentalAnimationApi
 @Composable
 fun BaseMediaItemMenu(
     onDismiss: () -> Unit,
@@ -255,7 +251,6 @@ fun BaseMediaItemMenu(
     }
 }
 
-@ExperimentalAnimationApi
 @Composable
 fun MediaItemMenu(
     onDismiss: () -> Unit,

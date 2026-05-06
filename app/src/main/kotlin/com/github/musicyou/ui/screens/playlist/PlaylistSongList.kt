@@ -1,7 +1,5 @@
 package com.github.musicyou.ui.screens.playlist
 
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,9 +20,9 @@ import com.github.musicyou.R
 import com.github.musicyou.models.ActionInfo
 import com.github.musicyou.models.LocalMenuState
 import com.github.musicyou.ui.components.CoverScaffold
+import com.github.musicyou.ui.components.NonQueuedMediaItemMenu
 import com.github.musicyou.ui.components.ShimmerHost
 import com.github.musicyou.ui.components.SwipeToActionBox
-import com.github.musicyou.ui.components.NonQueuedMediaItemMenu
 import com.github.musicyou.ui.components.adaptiveThumbnailContent
 import com.github.musicyou.ui.items.ListItemPlaceholder
 import com.github.musicyou.ui.items.SongItem
@@ -33,8 +31,6 @@ import com.github.musicyou.utils.enqueue
 import com.github.musicyou.utils.forcePlayAtIndex
 import com.github.musicyou.utils.forcePlayFromBeginning
 
-@ExperimentalFoundationApi
-@ExperimentalAnimationApi
 @Composable
 fun PlaylistSongList(
     playlistPage: Innertube.PlaylistOrAlbumPage?,

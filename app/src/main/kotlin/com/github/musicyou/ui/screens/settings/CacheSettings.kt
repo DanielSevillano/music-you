@@ -1,7 +1,7 @@
 package com.github.musicyou.ui.screens.settings
 
 import android.text.format.Formatter
-import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.annotation.OptIn
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import coil3.annotation.ExperimentalCoilApi
+import androidx.media3.common.util.UnstableApi
 import coil3.imageLoader
 import com.github.musicyou.LocalPlayerPadding
 import com.github.musicyou.LocalPlayerServiceBinder
@@ -35,9 +35,7 @@ import com.github.musicyou.utils.coilDiskCacheMaxSizeKey
 import com.github.musicyou.utils.exoPlayerDiskCacheMaxSizeKey
 import com.github.musicyou.utils.rememberPreference
 
-@androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
-@OptIn(ExperimentalCoilApi::class)
-@ExperimentalAnimationApi
+@OptIn(UnstableApi::class)
 @Composable
 fun CacheSettings() {
     val context = LocalContext.current

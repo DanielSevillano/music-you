@@ -5,7 +5,7 @@ import android.content.Intent
 import android.media.audiofx.AudioEffect
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.annotation.OptIn
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.media3.common.util.UnstableApi
 import com.github.musicyou.LocalPlayerPadding
 import com.github.musicyou.LocalPlayerServiceBinder
 import com.github.musicyou.R
@@ -34,8 +35,7 @@ import com.github.musicyou.utils.skipSilenceKey
 import com.github.musicyou.utils.toast
 import com.github.musicyou.utils.volumeNormalizationKey
 
-@androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
-@ExperimentalAnimationApi
+@OptIn(UnstableApi::class)
 @Composable
 fun PlayerSettings() {
     val context = LocalContext.current

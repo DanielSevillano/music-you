@@ -1,6 +1,5 @@
 package com.github.musicyou.ui.items
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
@@ -116,7 +115,6 @@ fun ItemPlaceholder(
     )
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ListItemContainer(
     modifier: Modifier = Modifier,

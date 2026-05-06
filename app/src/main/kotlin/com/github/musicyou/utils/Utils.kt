@@ -4,16 +4,18 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.format.DateUtils
+import androidx.annotation.OptIn
 import androidx.core.net.toUri
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
+import androidx.media3.common.util.UnstableApi
 import com.github.innertube.Innertube
 import com.github.innertube.requests.playlistPageContinuation
 import com.github.innertube.utils.plus
 import com.github.musicyou.models.Song
 
 val Innertube.SongItem.asMediaItem: MediaItem
-    @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
+    @OptIn(UnstableApi::class)
     get() = MediaItem.Builder()
         .setMediaId(key)
         .setUri(key)
@@ -43,7 +45,7 @@ val Innertube.SongItem.asMediaItem: MediaItem
         .build()
 
 val Innertube.VideoItem.asMediaItem: MediaItem
-    @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
+    @OptIn(UnstableApi::class)
     get() = MediaItem.Builder()
         .setMediaId(key)
         .setUri(key)
@@ -71,7 +73,7 @@ val Innertube.VideoItem.asMediaItem: MediaItem
         .build()
 
 val Song.asMediaItem: MediaItem
-    @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
+    @OptIn(UnstableApi::class)
     get() = MediaItem.Builder()
         .setMediaMetadata(
             MediaMetadata.Builder()

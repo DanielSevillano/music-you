@@ -1,8 +1,6 @@
 package com.github.musicyou.ui.screens.artist
 
 import android.content.Intent
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
@@ -47,8 +45,6 @@ import com.github.musicyou.utils.rememberPreference
 import com.github.musicyou.viewmodels.ArtistViewModel
 import kotlinx.coroutines.launch
 
-@ExperimentalFoundationApi
-@ExperimentalAnimationApi
 @Composable
 fun ArtistScreen(
     browseId: String,

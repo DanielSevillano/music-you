@@ -1,7 +1,6 @@
 package com.github.musicyou.ui.screens.player
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.fadeIn
@@ -58,15 +57,14 @@ import androidx.compose.ui.unit.dp
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.Timeline
-import com.valentinilk.shimmer.shimmer
 import com.github.musicyou.LocalPlayerServiceBinder
 import com.github.musicyou.R
 import com.github.musicyou.models.ActionInfo
 import com.github.musicyou.models.LocalMenuState
 import com.github.musicyou.ui.components.MusicBars
+import com.github.musicyou.ui.components.QueuedMediaItemMenu
 import com.github.musicyou.ui.components.SwipeToActionBox
 import com.github.musicyou.ui.components.TooltipIconButton
-import com.github.musicyou.ui.components.QueuedMediaItemMenu
 import com.github.musicyou.ui.items.ListItemPlaceholder
 import com.github.musicyou.ui.items.MediaSongItem
 import com.github.musicyou.ui.styling.Dimensions
@@ -77,11 +75,12 @@ import com.github.musicyou.utils.rememberPreference
 import com.github.musicyou.utils.shouldBePlaying
 import com.github.musicyou.utils.shuffleQueue
 import com.github.musicyou.utils.windows
+import com.valentinilk.shimmer.shimmer
 import kotlinx.coroutines.launch
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
 
-@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Queue(
     onGoToAlbum: (String) -> Unit,

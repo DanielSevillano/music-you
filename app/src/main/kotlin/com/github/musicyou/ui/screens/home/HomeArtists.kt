@@ -1,7 +1,5 @@
 package com.github.musicyou.ui.screens.home
 
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,8 +27,6 @@ import com.github.musicyou.utils.artistSortOrderKey
 import com.github.musicyou.utils.rememberPreference
 import com.github.musicyou.viewmodels.HomeArtistsViewModel
 
-@ExperimentalFoundationApi
-@ExperimentalAnimationApi
 @Composable
 fun HomeArtistList(
     openSearch: () -> Unit,

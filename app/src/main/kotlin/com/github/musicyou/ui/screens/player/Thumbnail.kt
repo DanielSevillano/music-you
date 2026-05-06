@@ -1,9 +1,9 @@
 package com.github.musicyou.ui.screens.player
 
+import androidx.annotation.OptIn
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.ContentTransform
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.SizeTransform
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
@@ -11,7 +11,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -60,9 +59,7 @@ import kotlinx.coroutines.runBlocking
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
 
-@androidx.annotation.OptIn(UnstableApi::class)
-@OptIn(ExperimentalFoundationApi::class)
-@ExperimentalAnimationApi
+@OptIn(UnstableApi::class)
 @Composable
 fun Thumbnail(
     isShowingLyrics: Boolean,
@@ -112,7 +109,7 @@ fun Thumbnail(
                 error = player.playerError
             }
 
-            @androidx.annotation.OptIn(UnstableApi::class)
+            @OptIn(UnstableApi::class)
             override fun onPlayerError(playbackException: PlaybackException) {
                 error = playbackException
 

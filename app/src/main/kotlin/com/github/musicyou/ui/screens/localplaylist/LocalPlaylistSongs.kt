@@ -1,7 +1,5 @@
 package com.github.musicyou.ui.screens.localplaylist
 
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.consumeWindowInsets
@@ -56,8 +54,6 @@ import kotlinx.coroutines.launch
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
 
-@ExperimentalAnimationApi
-@ExperimentalFoundationApi
 @Composable
 fun LocalPlaylistSongs(
     playlistId: Long,

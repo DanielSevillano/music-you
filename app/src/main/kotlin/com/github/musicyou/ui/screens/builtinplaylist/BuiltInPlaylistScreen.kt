@@ -1,7 +1,5 @@
 package com.github.musicyou.ui.screens.builtinplaylist
 
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -23,8 +21,6 @@ import com.github.musicyou.R
 import com.github.musicyou.enums.BuiltInPlaylist
 
 @OptIn(ExperimentalMaterial3Api::class)
-@ExperimentalFoundationApi
-@ExperimentalAnimationApi
 @Composable
 fun BuiltInPlaylistScreen(
     builtInPlaylist: BuiltInPlaylist,

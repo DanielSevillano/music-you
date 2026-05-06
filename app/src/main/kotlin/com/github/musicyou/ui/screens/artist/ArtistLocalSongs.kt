@@ -1,7 +1,5 @@
 package com.github.musicyou.ui.screens.artist
 
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -37,8 +35,6 @@ import com.github.musicyou.utils.enqueue
 import com.github.musicyou.utils.forcePlayAtIndex
 import com.github.musicyou.utils.forcePlayFromBeginning
 
-@ExperimentalFoundationApi
-@ExperimentalAnimationApi
 @Composable
 fun ArtistLocalSongs(
     browseId: String,

@@ -3,7 +3,6 @@ package com.github.musicyou.ui.screens.settings
 import android.content.ActivityNotFoundException
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -46,7 +45,6 @@ import java.util.Date
 import java.util.Locale
 import kotlin.system.exitProcess
 
-@ExperimentalAnimationApi
 @Composable
 fun DatabaseSettings() {
     val context = LocalContext.current

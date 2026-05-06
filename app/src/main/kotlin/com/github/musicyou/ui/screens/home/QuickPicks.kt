@@ -1,7 +1,5 @@
 package com.github.musicyou.ui.screens.home
 
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -76,8 +74,6 @@ import com.github.musicyou.utils.rememberPreference
 import com.github.musicyou.viewmodels.QuickPicksViewModel
 import kotlinx.coroutines.launch
 
-@ExperimentalFoundationApi
-@ExperimentalAnimationApi
 @Composable
 fun QuickPicks(
     openSearch: () -> Unit,

@@ -1,6 +1,5 @@
 package com.github.musicyou.ui.components
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -22,7 +21,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import com.github.musicyou.models.Section
 
 @OptIn(ExperimentalMaterial3Api::class)
-@ExperimentalAnimationApi
 @Composable
 fun TabScaffold(
     pagerState: PagerState,

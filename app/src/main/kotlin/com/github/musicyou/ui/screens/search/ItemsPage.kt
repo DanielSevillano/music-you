@@ -1,6 +1,5 @@
 package com.github.musicyou.ui.screens.search
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -38,7 +37,6 @@ import com.github.musicyou.viewmodels.ItemsPageViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-@ExperimentalAnimationApi
 @Composable
 fun <T : Innertube.Item> ItemsPage(
     tag: String,

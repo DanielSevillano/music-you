@@ -1,7 +1,5 @@
 package com.github.musicyou.ui.screens.artist
 
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -37,8 +35,8 @@ import com.github.musicyou.R
 import com.github.musicyou.models.ActionInfo
 import com.github.musicyou.models.LocalMenuState
 import com.github.musicyou.ui.components.CoverScaffold
-import com.github.musicyou.ui.components.ShimmerHost
 import com.github.musicyou.ui.components.NonQueuedMediaItemMenu
+import com.github.musicyou.ui.components.ShimmerHost
 import com.github.musicyou.ui.components.TextPlaceholder
 import com.github.musicyou.ui.items.AlbumItem
 import com.github.musicyou.ui.items.ArtistItem
@@ -50,8 +48,6 @@ import com.github.musicyou.ui.styling.Dimensions
 import com.github.musicyou.utils.asMediaItem
 import com.github.musicyou.utils.forcePlay
 
-@ExperimentalFoundationApi
-@ExperimentalAnimationApi
 @Composable
 fun ArtistOverview(
     youtubeArtistPage: Innertube.ArtistPage?,

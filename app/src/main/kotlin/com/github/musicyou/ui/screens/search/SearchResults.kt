@@ -1,7 +1,5 @@
 package com.github.musicyou.ui.screens.search
 
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -64,8 +62,6 @@ import com.github.musicyou.utils.forcePlayAtIndex
 import com.github.musicyou.utils.rememberPreference
 import com.github.musicyou.utils.searchResultScreenTabIndexKey
 
-@ExperimentalFoundationApi
-@ExperimentalAnimationApi
 @Composable
 fun SearchResults(
     query: String,

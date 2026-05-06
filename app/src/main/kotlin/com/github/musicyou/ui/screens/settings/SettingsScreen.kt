@@ -1,7 +1,5 @@
 package com.github.musicyou.ui.screens.settings
 
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -45,8 +43,6 @@ import com.github.musicyou.ui.components.ValueSelectorDialog
 import com.github.musicyou.ui.styling.Dimensions
 
 @OptIn(ExperimentalMaterial3Api::class)
-@ExperimentalFoundationApi
-@ExperimentalAnimationApi
 @Composable
 fun SettingsScreen(
     pop: () -> Unit,

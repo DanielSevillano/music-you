@@ -1,8 +1,6 @@
 package com.github.musicyou.ui.screens.album
 
 import android.content.Intent
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
@@ -40,8 +38,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.withContext
 
-@ExperimentalFoundationApi
-@ExperimentalAnimationApi
 @Composable
 fun AlbumScreen(
     browseId: String,

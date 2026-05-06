@@ -26,6 +26,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v4.media.session.MediaSessionCompat
 import android.text.format.DateUtils
+import androidx.annotation.OptIn
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -133,8 +134,7 @@ import kotlin.math.roundToInt
 import kotlin.system.exitProcess
 import android.os.Binder as AndroidBinder
 
-@ExperimentalCoroutinesApi
-@UnstableApi
+@OptIn(UnstableApi::class)
 class PlayerService : InvincibleService(), Player.Listener, PlaybackStatsListener.Callback,
     SharedPreferences.OnSharedPreferenceChangeListener {
     private lateinit var mediaSession: MediaSession
@@ -197,6 +197,7 @@ class PlayerService : InvincibleService(), Player.Listener, PlaybackStatsListene
 
     private val mediaItemState = MutableStateFlow<MediaItem?>(null)
 
+    @kotlin.OptIn(ExperimentalCoroutinesApi::class)
     private val isLikedState = mediaItemState
         .flatMapMerge { item ->
             item?.mediaId?.let {

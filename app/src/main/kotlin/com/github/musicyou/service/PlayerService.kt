@@ -42,6 +42,7 @@ import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
 import androidx.media3.common.Timeline
 import androidx.media3.common.audio.SonicAudioProcessor
+import androidx.media3.common.util.UnstableApi
 import androidx.media3.database.StandaloneDatabaseProvider
 import androidx.media3.datasource.DataSource
 import androidx.media3.datasource.DefaultHttpDataSource
@@ -57,7 +58,7 @@ import androidx.media3.exoplayer.analytics.AnalyticsListener
 import androidx.media3.exoplayer.analytics.PlaybackStats
 import androidx.media3.exoplayer.analytics.PlaybackStatsListener
 import androidx.media3.exoplayer.audio.AudioRendererEventListener
-import androidx.media3.exoplayer.audio.DefaultAudioOffloadSupportProvider
+import androidx.media3.exoplayer.audio.AudioTrackAudioOutputProvider
 import androidx.media3.exoplayer.audio.DefaultAudioSink
 import androidx.media3.exoplayer.audio.DefaultAudioSink.DefaultAudioProcessorChain
 import androidx.media3.exoplayer.audio.MediaCodecAudioRenderer
@@ -69,6 +70,8 @@ import androidx.media3.extractor.DefaultExtractorsFactory
 import com.github.innertube.Innertube
 import com.github.innertube.models.NavigationEndpoint
 import com.github.innertube.requests.player
+import com.github.innertube.requests.searchPage
+import com.github.innertube.utils.from
 import com.github.musicyou.MainActivity
 import com.github.musicyou.R
 import com.github.musicyou.database
@@ -130,7 +133,8 @@ import kotlin.math.roundToInt
 import kotlin.system.exitProcess
 import android.os.Binder as AndroidBinder
 
-@androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
+@ExperimentalCoroutinesApi
+@UnstableApi
 class PlayerService : InvincibleService(), Player.Listener, PlaybackStatsListener.Callback,
     SharedPreferences.OnSharedPreferenceChangeListener {
     private lateinit var mediaSession: MediaSession
@@ -149,6 +153,7 @@ class PlayerService : InvincibleService(), Player.Listener, PlaybackStatsListene
                         or PlaybackState.ACTION_SKIP_TO_QUEUE_ITEM
                         or PlaybackState.ACTION_SEEK_TO
                         or PlaybackState.ACTION_REWIND
+                        or PlaybackState.ACTION_PLAY_FROM_SEARCH
             )
             .addCustomAction(
                 FAVORITE_ACTION,
@@ -192,7 +197,6 @@ class PlayerService : InvincibleService(), Player.Listener, PlaybackStatsListene
 
     private val mediaItemState = MutableStateFlow<MediaItem?>(null)
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     private val isLikedState = mediaItemState
         .flatMapMerge { item ->
             item?.mediaId?.let {
@@ -897,9 +901,9 @@ class PlayerService : InvincibleService(), Player.Listener, PlaybackStatsListene
 
     private fun createRendersFactory(): RenderersFactory {
         val audioSink = DefaultAudioSink.Builder(applicationContext)
-            .setEnableFloatOutput(false)
-            .setEnableAudioTrackPlaybackParams(false)
-            .setAudioOffloadSupportProvider(DefaultAudioOffloadSupportProvider(applicationContext))
+            .setAudioOutputProvider(
+                AudioTrackAudioOutputProvider.Builder(applicationContext).build()
+            )
             .setAudioProcessorChain(
                 DefaultAudioProcessorChain(
                     emptyArray(),
@@ -998,6 +1002,16 @@ class PlayerService : InvincibleService(), Player.Listener, PlaybackStatsListene
             isLoadingRadio = false
             radioJob?.cancel()
             radio = null
+        }
+
+        fun playFromSearch(query: String) {
+            coroutineScope.launch {
+                Innertube.searchPage(
+                    query = query,
+                    params = Innertube.SearchFilter.Song.value,
+                    fromMusicShelfRendererContent = Innertube.SongItem.Companion::from
+                )
+            }
         }
     }
 

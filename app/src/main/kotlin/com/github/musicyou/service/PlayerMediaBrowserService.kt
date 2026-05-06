@@ -12,9 +12,7 @@ import android.service.media.MediaBrowserService
 import androidx.annotation.DrawableRes
 import androidx.annotation.OptIn
 import androidx.core.net.toUri
-import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
-import androidx.media3.datasource.cache.Cache
 import com.github.musicyou.R
 import com.github.musicyou.database
 import com.github.musicyou.models.Album
@@ -28,6 +26,7 @@ import com.github.musicyou.utils.forceSeekToPrevious
 import com.github.musicyou.utils.intent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -35,6 +34,7 @@ import kotlinx.coroutines.withContext
 import android.media.MediaDescription as BrowserMediaDescription
 import android.media.browse.MediaBrowser.MediaItem as BrowserMediaItem
 
+@ExperimentalCoroutinesApi
 class PlayerMediaBrowserService : MediaBrowserService(), ServiceConnection {
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
     private var lastSongs = emptyList<Song>()
@@ -50,7 +50,7 @@ class PlayerMediaBrowserService : MediaBrowserService(), ServiceConnection {
         if (service is PlayerService.Binder) {
             bound = true
             sessionToken = service.mediaSession.sessionToken
-            service.mediaSession.setCallback(SessionCallback(service.player, service.cache))
+            service.mediaSession.setCallback(SessionCallback(binder = service))
         }
     }
 
@@ -219,15 +219,18 @@ class PlayerMediaBrowserService : MediaBrowserService(), ServiceConnection {
             BrowserMediaItem.FLAG_PLAYABLE
         )
 
-    @OptIn(UnstableApi::class)
-    private inner class SessionCallback(private val player: Player, private val cache: Cache) :
+    private inner class SessionCallback(private val binder: PlayerService.Binder) :
         MediaSession.Callback() {
-        override fun onPlay() = player.play()
-        override fun onPause() = player.pause()
-        override fun onSkipToPrevious() = player.forceSeekToPrevious()
-        override fun onSkipToNext() = player.forceSeekToNext()
-        override fun onSeekTo(pos: Long) = player.seekTo(pos)
-        override fun onSkipToQueueItem(id: Long) = player.seekToDefaultPosition(id.toInt())
+        override fun onPlay() = binder.player.play()
+        override fun onPause() = binder.player.pause()
+        override fun onSkipToPrevious() = binder.player.forceSeekToPrevious()
+        override fun onSkipToNext() = binder.player.forceSeekToNext()
+        override fun onSeekTo(pos: Long) = binder.player.seekTo(pos)
+        override fun onSkipToQueueItem(id: Long) = binder.player.seekToDefaultPosition(id.toInt())
+        override fun onPlayFromSearch(query: String?, extras: Bundle?) {
+            if (query.isNullOrBlank()) return
+            binder.playFromSearch(query = query)
+        }
 
         @OptIn(UnstableApi::class)
         override fun onPlayFromMediaId(mediaId: String?, extras: Bundle?) {
@@ -255,7 +258,7 @@ class PlayerMediaBrowserService : MediaBrowserService(), ServiceConnection {
                         .first()
                         .filter { song ->
                             song.contentLength?.let {
-                                cache.isCached(song.song.id, 0, it)
+                                binder.cache.isCached(song.song.id, 0, it)
                             } == true
                         }
                         .map(SongWithContentLength::song)
@@ -278,7 +281,7 @@ class PlayerMediaBrowserService : MediaBrowserService(), ServiceConnection {
                 }?.map(Song::asMediaItem) ?: return@launch
 
                 withContext(Dispatchers.Main) {
-                    player.forcePlayAtIndex(
+                    binder.player.forcePlayAtIndex(
                         mediaItems = mediaItems,
                         mediaItemIndex = index.coerceIn(0, mediaItems.size)
                     )

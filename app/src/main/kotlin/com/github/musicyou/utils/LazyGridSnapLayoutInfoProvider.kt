@@ -50,10 +50,10 @@ fun SnapLayoutInfoProvider(
             )
 
             // Find item that is closest to the center
-            if (offset <= 0 && offset > lowerBoundOffset) lowerBoundOffset = offset
+            if (offset in lowerBoundOffset..0F) lowerBoundOffset = offset
 
             // Find item that is closest to center, but after it
-            if (offset >= 0 && offset < upperBoundOffset) upperBoundOffset = offset
+            if (offset in 0F..<upperBoundOffset) upperBoundOffset = offset
         }
 
         return if ((lowerBoundOffset * -1F) > upperBoundOffset) upperBoundOffset else lowerBoundOffset

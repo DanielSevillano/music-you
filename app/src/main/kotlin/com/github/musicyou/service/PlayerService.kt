@@ -1044,6 +1044,11 @@ class PlayerService : InvincibleService(), Player.Listener, PlaybackStatsListene
         override fun onSkipToQueueItem(id: Long) =
             runCatching { player.seekToDefaultPosition(id.toInt()) }.let { }
 
+        override fun onPlayFromSearch(query: String?, extras: Bundle?) {
+            if (query.isNullOrBlank()) return
+            binder.playFromSearch(query)
+        }
+
         override fun onCustomAction(action: String, extras: Bundle?) {
             super.onCustomAction(action, extras)
             if (action == FAVORITE_ACTION) likeAction()

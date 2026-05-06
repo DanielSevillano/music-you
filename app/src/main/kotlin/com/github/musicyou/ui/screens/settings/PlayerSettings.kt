@@ -27,7 +27,6 @@ import androidx.compose.ui.unit.dp
 import com.github.musicyou.LocalPlayerPadding
 import com.github.musicyou.LocalPlayerServiceBinder
 import com.github.musicyou.R
-import com.github.musicyou.utils.isAtLeastAndroid6
 import com.github.musicyou.utils.persistentQueueKey
 import com.github.musicyou.utils.rememberPreference
 import com.github.musicyou.utils.resumePlaybackWhenDeviceConnectedKey
@@ -69,17 +68,15 @@ fun PlayerSettings() {
             }
         )
 
-        if (isAtLeastAndroid6) {
-            SwitchSettingEntry(
-                title = stringResource(id = R.string.resume_playback),
-                text = stringResource(id = R.string.resume_playback_description),
-                icon = Icons.Outlined.Replay,
-                isChecked = resumePlaybackWhenDeviceConnected,
-                onCheckedChange = {
-                    resumePlaybackWhenDeviceConnected = it
-                }
-            )
-        }
+        SwitchSettingEntry(
+            title = stringResource(id = R.string.resume_playback),
+            text = stringResource(id = R.string.resume_playback_description),
+            icon = Icons.Outlined.Replay,
+            isChecked = resumePlaybackWhenDeviceConnected,
+            onCheckedChange = {
+                resumePlaybackWhenDeviceConnected = it
+            }
+        )
 
         SwitchSettingEntry(
             title = stringResource(id = R.string.skip_silence),

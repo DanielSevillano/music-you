@@ -38,7 +38,6 @@ import com.github.musicyou.R
 import com.github.musicyou.service.PlayerMediaBrowserService
 import com.github.musicyou.ui.styling.Dimensions
 import com.github.musicyou.utils.isAtLeastAndroid12
-import com.github.musicyou.utils.isAtLeastAndroid6
 import com.github.musicyou.utils.isIgnoringBatteryOptimizations
 import com.github.musicyou.utils.isInvincibilityEnabledKey
 import com.github.musicyou.utils.rememberPreference
@@ -114,8 +113,6 @@ fun OtherSettings() {
             },
             icon = Icons.Outlined.Battery0Bar,
             onClick = {
-                if (!isAtLeastAndroid6) return@SettingsEntry
-
                 try {
                     activityResultLauncher.launch(
                         Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).apply {

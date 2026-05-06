@@ -14,7 +14,7 @@ inline fun <reified T> Context.intent(): Intent =
 
 inline fun <reified T : BroadcastReceiver> Context.broadCastPendingIntent(
     requestCode: Int = 0,
-    flags: Int = if (isAtLeastAndroid6) PendingIntent.FLAG_IMMUTABLE else 0,
+    flags: Int = PendingIntent.FLAG_IMMUTABLE,
 ): PendingIntent =
     PendingIntent.getBroadcast(this, requestCode, intent<T>(), flags)
 
@@ -27,14 +27,10 @@ inline fun <reified T : Activity> Context.activityPendingIntent(
         this,
         requestCode,
         intent<T>().apply(block),
-        (if (isAtLeastAndroid6) PendingIntent.FLAG_IMMUTABLE else 0) or flags
+        PendingIntent.FLAG_IMMUTABLE or flags
     )
 
 val Context.isIgnoringBatteryOptimizations: Boolean
-    get() = if (isAtLeastAndroid6) {
-        getSystemService<PowerManager>()?.isIgnoringBatteryOptimizations(packageName) ?: true
-    } else {
-        true
-    }
+    get() = getSystemService<PowerManager>()?.isIgnoringBatteryOptimizations(packageName) ?: true
 
 fun Context.toast(message: String) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

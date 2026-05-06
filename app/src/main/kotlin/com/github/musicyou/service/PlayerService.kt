@@ -90,7 +90,6 @@ import com.github.musicyou.utils.forceSeekToPrevious
 import com.github.musicyou.utils.getEnum
 import com.github.musicyou.utils.intent
 import com.github.musicyou.utils.isAtLeastAndroid13
-import com.github.musicyou.utils.isAtLeastAndroid6
 import com.github.musicyou.utils.isAtLeastAndroid8
 import com.github.musicyou.utils.isInvincibilityEnabledKey
 import com.github.musicyou.utils.isShowingThumbnailInLockscreenKey
@@ -553,8 +552,6 @@ class PlayerService : InvincibleService(), Player.Listener, PlaybackStatsListene
     }
 
     private fun maybeResumePlaybackWhenDeviceConnected() {
-        if (!isAtLeastAndroid6) return
-
         if (preferences.getBoolean(resumePlaybackWhenDeviceConnectedKey, false)) {
             if (audioManager == null) {
                 audioManager = getSystemService(AUDIO_SERVICE) as AudioManager?
@@ -1064,7 +1061,7 @@ class PlayerService : InvincibleService(), Player.Listener, PlaybackStatsListene
                 context,
                 100,
                 Intent(value).setPackage(context.packageName),
-                PendingIntent.FLAG_UPDATE_CURRENT.or(if (isAtLeastAndroid6) PendingIntent.FLAG_IMMUTABLE else 0)
+                PendingIntent.FLAG_UPDATE_CURRENT.or(PendingIntent.FLAG_IMMUTABLE)
             )
 
         companion object {

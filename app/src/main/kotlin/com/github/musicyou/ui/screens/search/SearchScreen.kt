@@ -1,13 +1,12 @@
 package com.github.musicyou.ui.screens.search
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.input.rememberTextFieldState
@@ -42,23 +41,34 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.github.innertube.Innertube
 import com.github.innertube.requests.searchSuggestions
+import com.github.musicyou.LocalPlayerServiceBinder
 import com.github.musicyou.database
+import com.github.musicyou.enums.SongSortBy
+import com.github.musicyou.enums.SortOrder
 import com.github.musicyou.models.SearchQuery
+import com.github.musicyou.models.Song
 import com.github.musicyou.ui.styling.Dimensions
+import com.github.musicyou.ui.styling.px
+import com.github.musicyou.utils.asMediaItem
+import com.github.musicyou.utils.forcePlay
 import com.github.musicyou.utils.pauseSearchHistoryKey
 import com.github.musicyou.utils.preferences
+import com.github.musicyou.utils.thumbnail
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
-@ExperimentalFoundationApi
-@ExperimentalAnimationApi
 @Composable
 fun SearchScreen(
     pop: () -> Unit,
@@ -69,8 +79,10 @@ fun SearchScreen(
     val context = LocalContext.current
     var searchText: String? by rememberSaveable { mutableStateOf(null) }
     var history: List<SearchQuery> by remember { mutableStateOf(emptyList()) }
+    var librarySuggestion: Song? by remember { mutableStateOf(null) }
     var suggestionsResult: Result<List<String>?>? by remember { mutableStateOf(null) }
 
+    val binder = LocalPlayerServiceBinder.current
     val scope = rememberCoroutineScope()
     val textFieldState = rememberTextFieldState()
     val searchBarState = rememberSearchBarState(initialValue = SearchBarValue.Expanded)
@@ -101,6 +113,19 @@ fun SearchScreen(
             pop = pop,
             scope = scope
         )
+    }
+
+    LaunchedEffect(textFieldState.text) {
+        if (textFieldState.text.isNotEmpty()) {
+            database.songs(SongSortBy.PlayTime, SortOrder.Descending).collect {
+                librarySuggestion = it.find { song ->
+                    song.title.contains(
+                        other = textFieldState.text,
+                        ignoreCase = true
+                    )
+                }
+            }
+        } else librarySuggestion = null
     }
 
     LaunchedEffect(textFieldState.text) {
@@ -135,6 +160,51 @@ fun SearchScreen(
                 )
 
                 LazyColumn {
+                    librarySuggestion?.let { song ->
+                        item(key = "librarySuggestion") {
+                            ListItem(
+                                headlineContent = {
+                                    Text(
+                                        text = song.title,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                },
+                                modifier = Modifier
+                                    .padding(top = 12.dp)
+                                    .clickable {
+                                        binder?.stopRadio()
+                                        binder?.player?.forcePlay(song.asMediaItem)
+                                        pop()
+                                    },
+                                supportingContent = {
+                                    song.artistsText?.let { artists ->
+                                        Text(
+                                            text = artists,
+                                            maxLines = 1,
+                                            overflow = TextOverflow.Ellipsis
+                                        )
+                                    }
+                                },
+                                leadingContent = {
+                                    Box(modifier = Modifier.size(size = 56.dp)) {
+                                        AsyncImage(
+                                            model = song.thumbnailUrl?.thumbnail(size = 56.dp.px),
+                                            contentDescription = null,
+                                            contentScale = ContentScale.Crop,
+                                            modifier = Modifier
+                                                .fillMaxSize()
+                                                .clip(shape = MaterialTheme.shapes.medium)
+                                        )
+                                    }
+                                },
+                                colors = ListItemDefaults.colors(
+                                    containerColor = SearchBarDefaults.colors().containerColor
+                                )
+                            )
+                        }
+                    }
+
                     items(
                         items = history,
                         key = SearchQuery::id

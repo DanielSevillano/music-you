@@ -93,9 +93,10 @@ val Song.asMediaItem: MediaItem
         .build()
 
 fun String?.thumbnail(size: Int): String? {
+    val trimmedUrl = this?.replace(Regex("-rj-.*$"), "-rj")
     return when {
-        this?.startsWith("https://lh3") == true -> "$this-w$size-h$size"
-        this?.startsWith("https://yt3") == true -> "$this-w$size-h$size-s$size"
+        this?.startsWith("https://lh3") == true -> "$trimmedUrl-w$size-h$size"
+        this?.startsWith("https://yt3") == true -> "$trimmedUrl-w$size-h$size-s$size"
         else -> this
     }
 }

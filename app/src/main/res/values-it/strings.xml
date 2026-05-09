@@ -194,4 +194,5 @@
     <string name="featured_on">Featured on</string>
     <string name="fans_might_also_like">Fans might also like</string>
     <string name="no_related_albums">No related albums were found</string>
+    <string name="delete_image_cache">Delete image cache?</string>
 </resources>

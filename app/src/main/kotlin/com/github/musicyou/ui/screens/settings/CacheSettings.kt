@@ -10,14 +10,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Image
 import androidx.compose.material.icons.outlined.MusicNote
+import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -30,6 +37,7 @@ import com.github.musicyou.LocalPlayerServiceBinder
 import com.github.musicyou.R
 import com.github.musicyou.enums.CoilDiskCacheMaxSize
 import com.github.musicyou.enums.ExoPlayerDiskCacheMaxSize
+import com.github.musicyou.ui.components.ConfirmationDialog
 import com.github.musicyou.ui.styling.Dimensions
 import com.github.musicyou.utils.coilDiskCacheMaxSizeKey
 import com.github.musicyou.utils.exoPlayerDiskCacheMaxSizeKey
@@ -51,6 +59,8 @@ fun CacheSettings() {
         ExoPlayerDiskCacheMaxSize.`2GB`
     )
 
+    var isShowingImageCacheDialog by rememberSaveable { mutableStateOf(false) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -58,8 +68,8 @@ fun CacheSettings() {
             .padding(top = 8.dp, bottom = 16.dp + playerPadding)
     ) {
         context.imageLoader.diskCache?.let { diskCache ->
-            val diskCacheSize = remember(diskCache) {
-                diskCache.size
+            var diskCacheSize by remember(diskCache) {
+                mutableLongStateOf(diskCache.size)
             }
 
             Text(
@@ -78,7 +88,23 @@ fun CacheSettings() {
                 ),
                 progress = diskCacheSize.toFloat() / coilDiskCacheMaxSize.bytes.coerceAtLeast(
                     minimumValue = 1
-                ).toFloat()
+                ).toFloat(),
+                actionButton = {
+                    FilledIconButton(
+                        onClick = { isShowingImageCacheDialog = true },
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                        enabled = diskCacheSize > 0,
+                        colors = IconButtonDefaults.filledIconButtonColors(
+                            containerColor = MaterialTheme.colorScheme.errorContainer,
+                            contentColor = MaterialTheme.colorScheme.onErrorContainer
+                        )
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Delete,
+                            contentDescription = null
+                        )
+                    }
+                }
             )
 
             EnumValueSelectorSettingsEntry(
@@ -87,6 +113,17 @@ fun CacheSettings() {
                 onValueSelected = { coilDiskCacheMaxSize = it },
                 icon = Icons.Outlined.Image
             )
+
+            if (isShowingImageCacheDialog) {
+                ConfirmationDialog(
+                    title = stringResource(id = R.string.delete_image_cache),
+                    onDismiss = { isShowingImageCacheDialog = false },
+                    onConfirm = {
+                        diskCache.clear()
+                        diskCacheSize = 0
+                    }
+                )
+            }
         }
 
         binder?.cache?.let { cache ->

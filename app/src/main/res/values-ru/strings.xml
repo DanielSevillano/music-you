@@ -223,4 +223,5 @@
     <string name="featured_on">Где встречается</string>
     <string name="fans_might_also_like">Фанатам так же нравится</string>
     <string name="no_related_albums">Связанных альбомов не найдено</string>
+    <string name="delete_image_cache">Delete image cache?</string>
 </resources>

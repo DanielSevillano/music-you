@@ -29,6 +29,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
@@ -226,29 +227,38 @@ fun SettingsInformation(
 }
 
 @Composable
-fun SettingsProgress(text: String, progress: Float) {
-    Column(
+fun SettingsProgress(
+    text: String,
+    progress: Float,
+    actionButton: @Composable () -> Unit = {}
+) {
+    Row(
         modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 4.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp)
+        horizontalArrangement = Arrangement.spacedBy(space = 4.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
-            modifier = Modifier.width(240.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                text = text,
-                style = MaterialTheme.typography.labelLarge
-            )
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Row(
+                modifier = Modifier.width(240.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = text,
+                    style = MaterialTheme.typography.labelLarge
+                )
 
-            Text(
-                text = "${(progress * 100).toInt()}%",
-                style = MaterialTheme.typography.labelMedium
+                Text(
+                    text = "${(progress * 100).toInt()}%",
+                    style = MaterialTheme.typography.labelMedium
+                )
+            }
+
+            LinearProgressIndicator(
+                progress = { progress },
+                modifier = Modifier.clip(RoundedCornerShape(8.dp)),
             )
         }
 
-        LinearProgressIndicator(
-            progress = { progress },
-            modifier = Modifier.clip(RoundedCornerShape(8.dp)),
-        )
+        actionButton()
     }
 }

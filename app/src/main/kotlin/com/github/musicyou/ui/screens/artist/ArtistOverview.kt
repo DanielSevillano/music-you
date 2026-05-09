@@ -341,15 +341,17 @@ fun ArtistOverview(
                 )
 
                 Text(
-                    text = if (attributionsIndex == -1) {
-                        description
-                    } else {
-                        description.substring(0, attributionsIndex)
-                    },
+                    text = if (attributionsIndex == -1) description
+                    else description.substring(0, attributionsIndex),
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier
-                        .padding(horizontal = 16.dp)
+                        .fillMaxWidth()
                         .alpha(Dimensions.mediumOpacity)
+                        .padding(
+                            start = 16.dp,
+                            end = 16.dp,
+                            bottom = if (attributionsIndex == -1) 4.dp else 0.dp
+                        )
                 )
 
                 if (attributionsIndex != -1) {
@@ -358,7 +360,12 @@ fun ArtistOverview(
                         style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier
                             .alpha(Dimensions.mediumOpacity)
-                            .padding(start = 16.dp, end = 16.dp, top = 12.dp)
+                            .padding(
+                                start = 16.dp,
+                                end = 16.dp,
+                                top = 12.dp,
+                                bottom = 4.dp
+                            )
                     )
                 }
             }

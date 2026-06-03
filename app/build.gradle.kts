@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.compiler)
@@ -9,7 +7,6 @@ plugins {
 
 kotlin {
     compilerOptions {
-        languageVersion = KotlinVersion.KOTLIN_2_3
         freeCompilerArgs.addAll(
             "-Xcontext-parameters",
             "-Xannotation-default-target=param-property"
@@ -24,8 +21,8 @@ android {
     defaultConfig {
         applicationId = "com.github.musicyou"
         minSdk = 23
-        versionCode = 14
-        versionName = "1.1.0"
+        versionCode = 15
+        versionName = "1.1.1"
     }
 
     splits {

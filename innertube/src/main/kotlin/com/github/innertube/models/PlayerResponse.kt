@@ -31,10 +31,23 @@ data class PlayerResponse(
 
     @Serializable
     data class StreamingData(
-        val adaptiveFormats: List<AdaptiveFormat>?
+        val adaptiveFormats: List<AdaptiveFormat>?,
+        val formats: List<AdaptiveFormat>? = null
     ) {
         val highestQualityFormat: AdaptiveFormat?
-            get() = adaptiveFormats?.findLast { it.itag == 251 || it.itag == 140 }
+            get() {
+                val combined = adaptiveFormats.orEmpty() + formats.orEmpty()
+                val audioFormats = combined.filter { it.url != null && it.mimeType.startsWith("audio/") }
+                if (audioFormats.isNotEmpty()) {
+                    return audioFormats.find { it.itag == 251 }
+                        ?: audioFormats.find { it.itag == 140 }
+                        ?: audioFormats.find { it.itag == 250 }
+                        ?: audioFormats.find { it.itag == 249 }
+                        ?: audioFormats.find { it.itag == 139 }
+                        ?: audioFormats.maxByOrNull { it.bitrate ?: 0L }
+                }
+                return combined.find { it.url != null && it.mimeType.startsWith("video/") }
+            }
 
         @Serializable
         data class AdaptiveFormat(

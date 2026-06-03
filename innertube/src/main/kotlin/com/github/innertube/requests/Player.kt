@@ -22,7 +22,7 @@ suspend fun Innertube.player(videoId: String) = runCatchingNonCancellable {
                 videoId = videoId
             )
         )
-        mask("playabilityStatus.status,playerConfig.audioConfig,streamingData.adaptiveFormats,videoDetails.videoId")
+        mask("playabilityStatus.status,playerConfig.audioConfig,streamingData.adaptiveFormats,streamingData.formats,videoDetails.videoId")
     }.body<PlayerResponse>()
 
     if (response.playabilityStatus?.status == "OK") response
@@ -49,7 +49,7 @@ suspend fun Innertube.player(videoId: String) = runCatchingNonCancellable {
                     videoId = videoId
                 )
             )
-            mask("playabilityStatus.status,playerConfig.audioConfig,streamingData.adaptiveFormats,videoDetails.videoId")
+            mask("playabilityStatus.status,playerConfig.audioConfig,streamingData.adaptiveFormats,streamingData.formats,videoDetails.videoId")
         }.body<PlayerResponse>()
 
         if (safePlayerResponse.playabilityStatus?.status != "OK") {
@@ -64,7 +64,20 @@ suspend fun Innertube.player(videoId: String) = runCatchingNonCancellable {
             streamingData = safePlayerResponse.streamingData?.copy(
                 adaptiveFormats = safePlayerResponse.streamingData.adaptiveFormats?.map { adaptiveFormat ->
                     adaptiveFormat.copy(
-                        url = audioStreams.find { it.bitrate == adaptiveFormat.bitrate }?.url
+                        url = audioStreams.minByOrNull {
+                            val bitrate = adaptiveFormat.bitrate ?: 0L
+                            if (bitrate == 0L) Long.MAX_VALUE
+                            else kotlin.math.abs(it.bitrate - bitrate)
+                        }?.url
+                    )
+                },
+                formats = safePlayerResponse.streamingData.formats?.map { format ->
+                    format.copy(
+                        url = audioStreams.minByOrNull {
+                            val bitrate = format.bitrate ?: 0L
+                            if (bitrate == 0L) Long.MAX_VALUE
+                            else kotlin.math.abs(it.bitrate - bitrate)
+                        }?.url
                     )
                 }
             )

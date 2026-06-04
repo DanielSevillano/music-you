@@ -2,6 +2,7 @@ package com.github.musicyou.ui.items
 
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -31,7 +32,9 @@ fun AlbumItem(
                 model = album.thumbnail?.url.thumbnail(maxWidth.px),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.clip(MaterialTheme.shapes.large)
+                modifier = Modifier
+                    .size(maxWidth)
+                    .clip(MaterialTheme.shapes.large)
             )
         }
     }
@@ -55,7 +58,9 @@ fun LocalAlbumItem(
                 model = album.thumbnailUrl?.thumbnail(maxWidth.px),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.clip(MaterialTheme.shapes.large)
+                modifier = Modifier
+                    .size(maxWidth)
+                    .clip(MaterialTheme.shapes.large)
             )
         }
     }

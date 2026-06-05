@@ -30,6 +30,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import com.github.musicyou.R
 import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun TextFieldDialog(
@@ -106,7 +107,7 @@ fun TextFieldDialog(
     )
 
     LaunchedEffect(Unit) {
-        delay(300)
+        delay(duration = 300.milliseconds)
         focusRequester.requestFocus()
     }
 }

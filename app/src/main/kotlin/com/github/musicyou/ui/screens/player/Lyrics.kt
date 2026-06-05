@@ -78,6 +78,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
+import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun Lyrics(
@@ -126,7 +127,7 @@ fun Lyrics(
                         }
 
                         while (duration == C.TIME_UNSET) {
-                            delay(100)
+                            delay(duration = 100.milliseconds)
                             duration = withContext(Dispatchers.Main) {
                                 durationProvider()
                             }
@@ -268,7 +269,7 @@ fun Lyrics(
                         val center = with(density) { size.roundToPx() } / 6
 
                         while (isActive) {
-                            delay(50)
+                            delay(duration = 50.milliseconds)
                             if (synchronizedLyrics.update()) {
                                 lazyListState.animateScrollToItem(
                                     synchronizedLyrics.index,

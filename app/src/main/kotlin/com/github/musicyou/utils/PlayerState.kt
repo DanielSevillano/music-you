@@ -12,6 +12,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 inline fun Player.DisposableListener(crossinline listenerProvider: () -> Player.Listener) {
@@ -58,7 +59,7 @@ fun Player.positionAndDurationState(): State<Pair<Long, Long>> {
 
         val pollJob = launch {
             while (isActive) {
-                delay(500)
+                delay(duration = 500.milliseconds)
                 if (!isSeeking) {
                     state.value = currentPosition to duration
                 }

@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.seconds
 
 interface TimerJob {
     val millisLeft: StateFlow<Long?>
@@ -17,7 +18,7 @@ fun CoroutineScope.timer(delayMillis: Long, onCompletion: () -> Unit): TimerJob 
     val millisLeft = MutableStateFlow<Long?>(delayMillis)
     val job = launch {
         while (isActive && millisLeft.value != null) {
-            delay(1000)
+            delay(duration = 1.seconds)
             millisLeft.emit(millisLeft.value?.minus(1000)?.takeIf { it > 0 })
         }
     }

@@ -67,6 +67,7 @@ import com.github.musicyou.utils.thumbnail
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.milliseconds
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -138,7 +139,7 @@ fun SearchScreen(
 
     LaunchedEffect(textFieldState.text) {
         suggestionsResult = if (textFieldState.text.isNotEmpty()) {
-            delay(200)
+            delay(duration = 200.milliseconds)
             Innertube.searchSuggestions(input = "${textFieldState.text}")
         } else null
     }

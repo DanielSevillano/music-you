@@ -40,7 +40,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface DatabaseDao {
     @Transaction
-    @Query("SELECT * FROM Song WHERE totalPlayTimeMs > 0 ORDER BY ROWID ASC")
+    @Query("SELECT * FROM Song WHERE totalPlayTimeMs > 0 ORDER BY ROWID")
     @RewriteQueriesToDropUnusedColumns
     fun songsByRowIdAsc(): Flow<List<Song>>
 
@@ -50,17 +50,17 @@ interface DatabaseDao {
     fun songsByRowIdDesc(): Flow<List<Song>>
 
     @Transaction
-    @Query("SELECT * FROM Song WHERE totalPlayTimeMs > 0 ORDER BY title ASC")
+    @Query("SELECT * FROM Song WHERE totalPlayTimeMs > 0 ORDER BY title COLLATE NOCASE")
     @RewriteQueriesToDropUnusedColumns
     fun songsByTitleAsc(): Flow<List<Song>>
 
     @Transaction
-    @Query("SELECT * FROM Song WHERE totalPlayTimeMs > 0 ORDER BY title DESC")
+    @Query("SELECT * FROM Song WHERE totalPlayTimeMs > 0 ORDER BY title COLLATE NOCASE DESC")
     @RewriteQueriesToDropUnusedColumns
     fun songsByTitleDesc(): Flow<List<Song>>
 
     @Transaction
-    @Query("SELECT * FROM Song WHERE totalPlayTimeMs > 0 ORDER BY totalPlayTimeMs ASC")
+    @Query("SELECT * FROM Song WHERE totalPlayTimeMs > 0 ORDER BY totalPlayTimeMs")
     @RewriteQueriesToDropUnusedColumns
     fun songsByPlayTimeAsc(): Flow<List<Song>>
 
@@ -70,12 +70,12 @@ interface DatabaseDao {
     fun songsByPlayTimeDesc(): Flow<List<Song>>
 
     @Transaction
-    @Query("SELECT * FROM Song WHERE totalPlayTimeMs > 0 ORDER BY artistsText ASC")
+    @Query("SELECT * FROM Song WHERE totalPlayTimeMs > 0 ORDER BY artistsText COLLATE NOCASE")
     @RewriteQueriesToDropUnusedColumns
     fun songsByArtistsAsc(): Flow<List<Song>>
 
     @Transaction
-    @Query("SELECT * FROM Song WHERE totalPlayTimeMs > 0 ORDER BY artistsText DESC")
+    @Query("SELECT * FROM Song WHERE totalPlayTimeMs > 0 ORDER BY artistsText COLLATE NOCASE DESC")
     @RewriteQueriesToDropUnusedColumns
     fun songsByArtistsDesc(): Flow<List<Song>>
 
@@ -141,17 +141,17 @@ interface DatabaseDao {
     @Query("SELECT * FROM Artist WHERE id = :id")
     fun artist(id: String): Flow<Artist?>
 
-    @Query("SELECT * FROM Artist WHERE bookmarkedAt IS NOT NULL ORDER BY name DESC")
+    @Query("SELECT * FROM Artist WHERE bookmarkedAt IS NOT NULL ORDER BY name COLLATE NOCASE")
+    fun artistsByNameAsc(): Flow<List<Artist>>
+
+    @Query("SELECT * FROM Artist WHERE bookmarkedAt IS NOT NULL ORDER BY name COLLATE NOCASE DESC")
     fun artistsByNameDesc(): Flow<List<Artist>>
 
-    @Query("SELECT * FROM Artist WHERE bookmarkedAt IS NOT NULL ORDER BY name ASC")
-    fun artistsByNameAsc(): Flow<List<Artist>>
+    @Query("SELECT * FROM Artist WHERE bookmarkedAt IS NOT NULL ORDER BY bookmarkedAt")
+    fun artistsByRowIdAsc(): Flow<List<Artist>>
 
     @Query("SELECT * FROM Artist WHERE bookmarkedAt IS NOT NULL ORDER BY bookmarkedAt DESC")
     fun artistsByRowIdDesc(): Flow<List<Artist>>
-
-    @Query("SELECT * FROM Artist WHERE bookmarkedAt IS NOT NULL ORDER BY bookmarkedAt ASC")
-    fun artistsByRowIdAsc(): Flow<List<Artist>>
 
     fun artists(sortBy: ArtistSortBy, sortOrder: SortOrder): Flow<List<Artist>> {
         return when (sortBy) {
@@ -178,20 +178,20 @@ interface DatabaseDao {
     @RewriteQueriesToDropUnusedColumns
     fun albumSongs(albumId: String): Flow<List<Song>>
 
-    @Query("SELECT * FROM Album WHERE bookmarkedAt IS NOT NULL ORDER BY title ASC")
+    @Query("SELECT * FROM Album WHERE bookmarkedAt IS NOT NULL ORDER BY title COLLATE NOCASE")
     fun albumsByTitleAsc(): Flow<List<Album>>
 
-    @Query("SELECT * FROM Album WHERE bookmarkedAt IS NOT NULL ORDER BY year ASC")
-    fun albumsByYearAsc(): Flow<List<Album>>
-
-    @Query("SELECT * FROM Album WHERE bookmarkedAt IS NOT NULL ORDER BY bookmarkedAt ASC")
-    fun albumsByRowIdAsc(): Flow<List<Album>>
-
-    @Query("SELECT * FROM Album WHERE bookmarkedAt IS NOT NULL ORDER BY title DESC")
+    @Query("SELECT * FROM Album WHERE bookmarkedAt IS NOT NULL ORDER BY title COLLATE NOCASE DESC")
     fun albumsByTitleDesc(): Flow<List<Album>>
+
+    @Query("SELECT * FROM Album WHERE bookmarkedAt IS NOT NULL ORDER BY year")
+    fun albumsByYearAsc(): Flow<List<Album>>
 
     @Query("SELECT * FROM Album WHERE bookmarkedAt IS NOT NULL ORDER BY year DESC")
     fun albumsByYearDesc(): Flow<List<Album>>
+
+    @Query("SELECT * FROM Album WHERE bookmarkedAt IS NOT NULL ORDER BY bookmarkedAt")
+    fun albumsByRowIdAsc(): Flow<List<Album>>
 
     @Query("SELECT * FROM Album WHERE bookmarkedAt IS NOT NULL ORDER BY bookmarkedAt DESC")
     fun albumsByRowIdDesc(): Flow<List<Album>>
@@ -230,24 +230,24 @@ interface DatabaseDao {
     fun playlistWithSongs(id: Long): Flow<PlaylistWithSongs?>
 
     @Transaction
-    @Query("SELECT id, name, (SELECT COUNT(*) FROM SongPlaylistMap WHERE playlistId = id) as songCount FROM Playlist ORDER BY name ASC")
+    @Query("SELECT id, name, (SELECT COUNT(*) FROM SongPlaylistMap WHERE playlistId = id) as songCount FROM Playlist ORDER BY name COLLATE NOCASE")
     fun playlistPreviewsByNameAsc(): Flow<List<PlaylistPreview>>
 
     @Transaction
-    @Query("SELECT id, name, (SELECT COUNT(*) FROM SongPlaylistMap WHERE playlistId = id) as songCount FROM Playlist ORDER BY ROWID ASC")
-    fun playlistPreviewsByDateAddedAsc(): Flow<List<PlaylistPreview>>
-
-    @Transaction
-    @Query("SELECT id, name, (SELECT COUNT(*) FROM SongPlaylistMap WHERE playlistId = id) as songCount FROM Playlist ORDER BY songCount ASC")
-    fun playlistPreviewsByDateSongCountAsc(): Flow<List<PlaylistPreview>>
-
-    @Transaction
-    @Query("SELECT id, name, (SELECT COUNT(*) FROM SongPlaylistMap WHERE playlistId = id) as songCount FROM Playlist ORDER BY name DESC")
+    @Query("SELECT id, name, (SELECT COUNT(*) FROM SongPlaylistMap WHERE playlistId = id) as songCount FROM Playlist ORDER BY name COLLATE NOCASE DESC")
     fun playlistPreviewsByNameDesc(): Flow<List<PlaylistPreview>>
+
+    @Transaction
+    @Query("SELECT id, name, (SELECT COUNT(*) FROM SongPlaylistMap WHERE playlistId = id) as songCount FROM Playlist ORDER BY ROWID")
+    fun playlistPreviewsByDateAddedAsc(): Flow<List<PlaylistPreview>>
 
     @Transaction
     @Query("SELECT id, name, (SELECT COUNT(*) FROM SongPlaylistMap WHERE playlistId = id) as songCount FROM Playlist ORDER BY ROWID DESC")
     fun playlistPreviewsByDateAddedDesc(): Flow<List<PlaylistPreview>>
+
+    @Transaction
+    @Query("SELECT id, name, (SELECT COUNT(*) FROM SongPlaylistMap WHERE playlistId = id) as songCount FROM Playlist ORDER BY songCount")
+    fun playlistPreviewsByDateSongCountAsc(): Flow<List<PlaylistPreview>>
 
     @Transaction
     @Query("SELECT id, name, (SELECT COUNT(*) FROM SongPlaylistMap WHERE playlistId = id) as songCount FROM Playlist ORDER BY songCount DESC")

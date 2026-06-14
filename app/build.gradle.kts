@@ -5,15 +5,6 @@ plugins {
     alias(libs.plugins.kotlin.ksp)
 }
 
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.addAll(
-            "-Xcontext-parameters",
-            "-Xannotation-default-target=param-property"
-        )
-    }
-}
-
 android {
     namespace = "com.github.musicyou"
     compileSdk = 37

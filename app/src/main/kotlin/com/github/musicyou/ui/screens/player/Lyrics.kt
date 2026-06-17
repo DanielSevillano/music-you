@@ -223,7 +223,7 @@ fun Lyrics(
                     color = Color.White,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
-                        .padding(all = 16.dp)
+                        .padding(all = 4.dp)
                         .fillMaxWidth()
                 )
             }
@@ -240,11 +240,11 @@ fun Lyrics(
                     } else {
                         stringResource(id = R.string.lyrics_not_available)
                     },
-                    style = MaterialTheme.typography.bodyLarge,
+                    fontSize = 20.sp,
                     color = Color.White,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
-                        .padding(all = 16.dp)
+                        .padding(all = 8.dp)
                         .fillMaxWidth()
                 )
             }
@@ -295,6 +295,7 @@ fun Lyrics(
                                 fontWeight = if (index == synchronizedLyrics.index)
                                     FontWeight.SemiBold
                                 else FontWeight.Normal,
+                                lineHeight = 28.sp,
                                 modifier = Modifier
                                     .padding(vertical = 4.dp, horizontal = 32.dp)
                                     .alpha(if (index == synchronizedLyrics.index) 1F else Dimensions.mediumOpacity)
@@ -305,8 +306,8 @@ fun Lyrics(
                     Text(
                         text = text,
                         color = Color.White,
-                        textAlign = TextAlign.Center,
                         fontSize = 20.sp,
+                        lineHeight = 28.sp,
                         modifier = Modifier
                             .verticalFadingEdge()
                             .verticalScroll(rememberScrollState())

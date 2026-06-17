@@ -1,5 +1,6 @@
 package com.github.musicyou.ui.screens.player
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectVerticalDragGestures
@@ -42,6 +43,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
@@ -195,6 +197,14 @@ fun Player(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.padding(top = 54.dp)
                 ) {
+                    val weight = animateFloatAsState(
+                        targetValue = if (fullScreenLyrics) 0.01f else 1f
+                    )
+
+                    val alpha = animateFloatAsState(
+                        targetValue = if (fullScreenLyrics) 0f else 1f
+                    )
+
                     Box(
                         contentAlignment = Alignment.Center,
                         modifier = Modifier.weight(1.25f)
@@ -204,14 +214,13 @@ fun Player(
                         )
                     }
 
-                    if (!fullScreenLyrics) {
-                        controlsContent(
-                            Modifier
-                                .padding(vertical = 8.dp)
-                                .fillMaxWidth()
-                                .weight(1f)
-                        )
-                    }
+                    controlsContent(
+                        Modifier
+                            .padding(vertical = 8.dp)
+                            .fillMaxWidth()
+                            .alpha(alpha = alpha.value)
+                            .weight(weight.value)
+                    )
                 }
             }
         }

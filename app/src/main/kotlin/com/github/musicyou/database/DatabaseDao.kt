@@ -70,12 +70,12 @@ interface DatabaseDao {
     fun songsByPlayTimeDesc(): Flow<List<Song>>
 
     @Transaction
-    @Query("SELECT * FROM Song WHERE totalPlayTimeMs > 0 ORDER BY artistsText COLLATE NOCASE")
+    @Query("SELECT * FROM Song WHERE totalPlayTimeMs > 0 ORDER BY artistsText COLLATE NOCASE, title COLLATE NOCASE")
     @RewriteQueriesToDropUnusedColumns
     fun songsByArtistsAsc(): Flow<List<Song>>
 
     @Transaction
-    @Query("SELECT * FROM Song WHERE totalPlayTimeMs > 0 ORDER BY artistsText COLLATE NOCASE DESC")
+    @Query("SELECT * FROM Song WHERE totalPlayTimeMs > 0 ORDER BY artistsText COLLATE NOCASE DESC, title COLLATE NOCASE")
     @RewriteQueriesToDropUnusedColumns
     fun songsByArtistsDesc(): Flow<List<Song>>
 

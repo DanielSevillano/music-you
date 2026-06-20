@@ -8,6 +8,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -27,6 +28,7 @@ import androidx.compose.material.icons.outlined.FullscreenExit
 import androidx.compose.material.icons.outlined.MoreHoriz
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -234,19 +236,37 @@ fun Lyrics(
                 exit = fadeOut(),
                 modifier = Modifier.align(Alignment.Center)
             ) {
-                Text(
-                    text = if (isShowingSynchronizedLyrics) {
-                        stringResource(id = R.string.synchronized_lyrics_not_available)
-                    } else {
-                        stringResource(id = R.string.lyrics_not_available)
-                    },
-                    fontSize = 20.sp,
-                    color = Color.White,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .padding(all = 8.dp)
-                        .fillMaxWidth()
-                )
+                if (isShowingSynchronizedLyrics) {
+                    Column(
+                        modifier = Modifier.padding(all = 8.dp),
+                        verticalArrangement = Arrangement.spacedBy(space = 12.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.synchronized_lyrics_not_available),
+                            fontSize = 18.sp,
+                            color = Color.White,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+
+                        Button(
+                            onClick = { isShowingSynchronizedLyrics = false }
+                        ) {
+                            Text(text = stringResource(id = R.string.show_unsynchronized_lyrics))
+                        }
+                    }
+                } else {
+                    Text(
+                        text = stringResource(id = R.string.lyrics_not_available),
+                        fontSize = 18.sp,
+                        color = Color.White,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .padding(all = 8.dp)
+                            .fillMaxWidth()
+                    )
+                }
             }
 
             if (text?.isNotEmpty() == true) {

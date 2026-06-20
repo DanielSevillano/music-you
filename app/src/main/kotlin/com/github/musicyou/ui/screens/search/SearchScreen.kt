@@ -15,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowForward
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.History
+import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.ExpandedFullScreenSearchBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -55,8 +56,10 @@ import com.github.musicyou.LocalPlayerServiceBinder
 import com.github.musicyou.database
 import com.github.musicyou.enums.SongSortBy
 import com.github.musicyou.enums.SortOrder
+import com.github.musicyou.models.LocalMenuState
 import com.github.musicyou.models.SearchQuery
 import com.github.musicyou.models.Song
+import com.github.musicyou.ui.components.NonQueuedMediaItemMenu
 import com.github.musicyou.ui.styling.Dimensions
 import com.github.musicyou.ui.styling.px
 import com.github.musicyou.utils.asMediaItem
@@ -84,6 +87,7 @@ fun SearchScreen(
     var suggestionsResult: Result<List<String>?>? by remember { mutableStateOf(null) }
 
     val binder = LocalPlayerServiceBinder.current
+    val menuState = LocalMenuState.current
     val scope = rememberCoroutineScope()
     val textFieldState = rememberTextFieldState()
     val searchBarState = rememberSearchBarState(initialValue = SearchBarValue.Expanded)
@@ -196,6 +200,24 @@ fun SearchScreen(
                                             modifier = Modifier
                                                 .fillMaxSize()
                                                 .clip(shape = MaterialTheme.shapes.medium)
+                                        )
+                                    }
+                                },
+                                trailingContent = {
+                                    IconButton(
+                                        onClick = {
+                                            menuState.display {
+                                                NonQueuedMediaItemMenu(
+                                                    onDismiss = menuState::hide,
+                                                    mediaItem = song.asMediaItem,
+                                                    onGoToAlbum = onAlbumClick
+                                                )
+                                            }
+                                        }
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Outlined.MoreVert,
+                                            contentDescription = null
                                         )
                                     }
                                 },

@@ -68,7 +68,7 @@ fun PlaybackError(
         is UnplayableException -> stringResource(id = R.string.video_source_deleted_error)
         is LoginRequiredException -> stringResource(id = R.string.server_restrictions_error)
         is VideoIdMismatchException -> stringResource(id = R.string.id_mismatch_error)
-        else -> stringResource(id = R.string.unknown_playback_error)
+        else -> error?.cause?.localizedMessage ?: stringResource(id = R.string.unknown_playback_error)
     }
 
     AnimatedVisibility(

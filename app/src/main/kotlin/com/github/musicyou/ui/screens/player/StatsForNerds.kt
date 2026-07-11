@@ -68,12 +68,16 @@ fun StatsForNerds(
 
     LaunchedEffect(mediaId) {
         database.format(mediaId).distinctUntilChanged().collectLatest { currentFormat ->
-            if (currentFormat?.itag == null) {
+            if (currentFormat?.itag == null || currentFormat.contentLength == null) {
                 binder.player.currentMediaItem?.takeIf { it.mediaId == mediaId }?.let { mediaItem ->
                     withContext(Dispatchers.IO) {
                         delay(duration = 2.seconds)
                         Innertube.player(videoId = mediaId)?.onSuccess { response ->
                             response.streamingData?.highestQualityFormat?.let { format ->
+                                if (currentFormat?.contentLength == null && format.contentLength != null) {
+                                    binder.cache.removeResource(mediaId)
+                                }
+
                                 database.insert(mediaItem)
                                 database.insert(
                                     Format(

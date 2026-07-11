@@ -95,7 +95,13 @@ fun Thumbnail(
                 player.forceSeekToNext()
             }
 
-            else -> player.prepare()
+            else -> {
+                if (error?.cause?.message?.contains("Invalid NAL length") == true) {
+                    player.currentMediaItem?.mediaId?.let { binder.cache.removeResource(it) }
+                }
+
+                player.prepare()
+            }
         }
     }
 

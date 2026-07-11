@@ -30,18 +30,18 @@ class YouTubeClient(
     companion object {
         val WEB_REMIX = YouTubeClient(
             clientName = "WEB_REMIX",
-            clientVersion = "1.20260114.03.00",
+            clientVersion = "1.20260707.12.00",
             clientId = "67",
             platform = "DESKTOP",
             userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0"
         )
 
-        val ANDROID_VR = YouTubeClient(
-            clientName = "ANDROID_VR",
-            clientVersion = "1.71.26",
-            clientId = "28",
-            userAgent = "com.google.android.apps.youtube.vr.oculus/1.71.26 (Linux; U; Android 12L; eureka-user Build/SQ3A.220605.009.A1) gzip",
-            osVersion = "12L"
+        val VISION_OS = YouTubeClient(
+            clientName = "VISIONOS",
+            clientVersion = "1.02",
+            clientId = "101",
+            userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 15_7_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.0 Safari/605.1.15",
+            osVersion = "26.5.23O47",
         )
 
         val TVHTML5_SIMPLY_EMBEDDED_PLAYER = YouTubeClient(

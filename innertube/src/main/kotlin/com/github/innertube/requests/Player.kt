@@ -18,7 +18,7 @@ suspend fun Innertube.player(videoId: String) = runCatchingNonCancellable {
     val response = client.post(PLAYER) {
         setBody(
             PlayerBody(
-                context = YouTubeClient.ANDROID_VR.toContext(visitorData = visitorData),
+                context = YouTubeClient.VISION_OS.toContext(visitorData = visitorData),
                 videoId = videoId
             )
         )

@@ -29,13 +29,13 @@
     <string name="database">Данные</string>
     <string name="other">Другое</string>
     <string name="persistent_queue">Постоянная очередь</string>
-    <string name="persistent_queue_description">Сохраняет и восстанавливает воспроизводимые треки</string>
+    <string name="persistent_queue_description">Сохранять и восстанавливать воспроизводимые треки</string>
     <string name="resume_playback">Возобновление воспроизведения</string>
     <string name="resume_playback_description">При подключении проводного или Bluetooth-устройства</string>
     <string name="skip_silence">Пропуск тишины</string>
     <string name="skip_silence_description">Пропускать моменты без звука</string>
     <string name="loudness_normalization">Нормализация звука</string>
-    <string name="loudness_normalization_description">Устанавливает громкость на фиксированном уровне</string>
+    <string name="loudness_normalization_description">Установить громкость на фиксированном уровне</string>
     <string name="equalizer">Эквалайзер</string>
     <string name="equalizer_description">Настроить системный эквалайзер</string>
     <string name="show_song_cover">Показывать обложку треков</string>
@@ -135,35 +135,15 @@
     <string name="error_fetching_lyrics">Произошла ошибка при загрузке текста песни</string>
     <string name="error_fetching_synchronized_lyrics">Произошла ошибка при загрузке синхронизированного текста песни</string>
 
-    <!-- Here we need plurals or leave the general option -->
-    <!--
-    <plurals name="delete_playback_events">
-        <item quantity="one">Удалить %d событие воспроизведения</item>
-        <item quantity="few">Удалить %d события воспроизведения</item>
-        <item quantity="many">Удалить %d событий воспроизведения</item>
-        <item quantity="other">Удалить %d события воспроизведения</item>
-    </plurals>
-    -->
     <string name="delete_playback_events">Удалить события воспроизведения</string>
 
     <string name="quick_picks_cleared">Рекомендации очищены</string>
-
-    <!-- Here we need plurals or leave the general option -->
-    <!--
-    <plurals name="delete_search_queries">
-        <item quantity="one">Удалить %d поисковый запрос</item>
-        <item quantity="few">Удалить %d поисковых запроса</item>
-        <item quantity="many">Удалить %d поисковых запросов</item>
-        <item quantity="other">Удалить %d поисковых запроса</item>
-    </plurals>
-    -->
     <string name="delete_search_queries">Удалить поисковые запросы</string>
 
     <string name="history_is_empty">История пуста</string>
     <string name="already_unrestricted">Уже без ограничений</string>
     <string name="disable_background_restrictions">Отключение фоновых ограничений</string>
 
-    <!-- Idk, maybe we need plurals there too -->
     <string name="subscribers">Подписчики</string>
 
     <string name="home_error">Произошла ошибка</string>
@@ -202,10 +182,10 @@
     <string name="loudness">Громкость</string>
     <string name="unknown">Неизвестно</string>
     <string name="clear_cache">Очистить кэш</string>
-    <string name="navigation_bar_label_visibility">Видимость подписей к иконкам панели навигации</string>
-    <string name="visible">Видимы</string>
-    <string name="visible_when_active">Видимы у активного</string>
-    <string name="hidden">Скрыты</string>
+    <string name="navigation_bar_label_visibility">Отображение надписей панели навигации</string>
+    <string name="visible">Включено</string>
+    <string name="visible_when_active">Только для активной вкладки</string>
+    <string name="hidden">Выключено</string>
     <string name="check_for_updates">Проверить наличие обновлений</string>
     <string name="checking_for_updates">Проверка наличия обновлений</string>
     <string name="new_version_available">Доступна новая версия</string>
@@ -223,6 +203,6 @@
     <string name="featured_on">Где встречается</string>
     <string name="fans_might_also_like">Фанатам так же нравится</string>
     <string name="no_related_albums">Связанных альбомов не найдено</string>
-    <string name="delete_image_cache">Delete image cache?</string>
-    <string name="unlimited">Unlimited</string>
+    <string name="delete_image_cache">Удалить кэш изображений?</string>
+    <string name="unlimited">Неограниченно</string>
 </resources>

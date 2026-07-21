@@ -104,7 +104,7 @@ inline fun <reified T : Enum<T>> EnumValueSelectorSettingsEntry(
     crossinline onValueSelected: (T) -> Unit,
     icon: ImageVector,
     isEnabled: Boolean = true,
-    crossinline valueText: (T) -> String = Enum<T>::name,
+    crossinline valueText: @Composable (T) -> String,
     noinline trailingContent: @Composable (() -> Unit)? = null
 ) {
     ValueSelectorSettingsEntry(
@@ -127,7 +127,7 @@ inline fun <T> ValueSelectorSettingsEntry(
     crossinline onValueSelected: (T) -> Unit,
     icon: ImageVector,
     isEnabled: Boolean = true,
-    crossinline valueText: (T) -> String = { it.toString() },
+    crossinline valueText: @Composable (T) -> String = { it.toString() },
     noinline trailingContent: @Composable (() -> Unit)? = null
 ) {
     var isShowingDialog by remember { mutableStateOf(false) }

@@ -60,7 +60,7 @@ fun GeneralSettings() {
             selectedValue = navigationLabelsVisibility,
             onValueSelected = { navigationLabelsVisibility = it },
             icon = Icons.Outlined.Visibility,
-            valueText = { context.getString(it.resourceId) }
+            valueText = { stringResource(id = it.resourceId) }
         )
 
         EnumValueSelectorSettingsEntry(
@@ -68,7 +68,7 @@ fun GeneralSettings() {
             selectedValue = quickPicksSource,
             onValueSelected = { quickPicksSource = it },
             icon = Icons.AutoMirrored.Outlined.List,
-            valueText = { context.getString(it.resourceId) }
+            valueText = { stringResource(id = it.resourceId) }
         )
 
         if (isAtLeastAndroid13) {

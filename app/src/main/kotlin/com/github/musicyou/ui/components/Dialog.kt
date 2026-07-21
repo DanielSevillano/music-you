@@ -159,7 +159,7 @@ inline fun <T> ValueSelectorDialog(
     selectedValue: T,
     values: List<T>,
     crossinline onValueSelected: (T) -> Unit,
-    crossinline valueText: (T) -> String = { it.toString() }
+    crossinline valueText: @Composable (T) -> String = { it.toString() }
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,

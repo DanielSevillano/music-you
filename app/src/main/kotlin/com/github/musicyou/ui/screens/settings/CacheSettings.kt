@@ -111,7 +111,8 @@ fun CacheSettings() {
                 title = stringResource(id = R.string.max_size),
                 selectedValue = coilDiskCacheMaxSize,
                 onValueSelected = { coilDiskCacheMaxSize = it },
-                icon = Icons.Outlined.Image
+                icon = Icons.Outlined.Image,
+                valueText = { it.name }
             )
 
             if (isShowingImageCacheDialog) {
@@ -159,7 +160,11 @@ fun CacheSettings() {
                 title = stringResource(id = R.string.max_size),
                 selectedValue = exoPlayerDiskCacheMaxSize,
                 onValueSelected = { exoPlayerDiskCacheMaxSize = it },
-                icon = Icons.Outlined.MusicNote
+                icon = Icons.Outlined.MusicNote,
+                valueText = {
+                    if (it == ExoPlayerDiskCacheMaxSize.Unlimited) stringResource(id = R.string.unlimited)
+                    else it.name
+                }
             )
         }
 

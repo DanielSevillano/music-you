@@ -196,4 +196,5 @@
 <string name="fans_might_also_like">Benzer sanatçılar</string>
 <string name="no_related_albums">İlgili albüm bulunamadı</string>
 <string name="delete_image_cache">Görsel önbelleği silinsin mi?</string>
+    <string name="unlimited">Unlimited</string>
 </resources>

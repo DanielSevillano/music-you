@@ -13,6 +13,6 @@ class ItemsPageViewModel<T : Innertube.Item> : ViewModel() {
         items: Innertube.ItemsPage<T>?
     ) {
         if (!itemsMap.containsKey(tag)) itemsMap[tag] = items
-        else itemsMap[tag] += items!!
+        else itemsMap[tag].plus(items!!)
     }
 }

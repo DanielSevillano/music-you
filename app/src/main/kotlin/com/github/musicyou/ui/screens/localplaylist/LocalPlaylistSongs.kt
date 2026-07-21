@@ -49,7 +49,6 @@ import com.github.musicyou.utils.asMediaItem
 import com.github.musicyou.utils.enqueue
 import com.github.musicyou.utils.forcePlayAtIndex
 import com.github.musicyou.utils.forcePlayFromBeginning
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
@@ -67,7 +66,7 @@ fun LocalPlaylistSongs(
     var playlistSongs: List<Song> by remember { mutableStateOf(emptyList()) }
 
     LaunchedEffect(Unit) {
-        database.playlistSongs(playlistId).filterNotNull().collect { playlistSongs = it }
+        database.playlistSongs(playlistId).collect { playlistSongs = it }
     }
 
     val lazyListState = rememberLazyListState()

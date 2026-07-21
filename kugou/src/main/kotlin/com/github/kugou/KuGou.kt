@@ -148,7 +148,21 @@ object KuGou {
     }
 
     @JvmInline
-    value class Lyrics(val value: String) : CharSequence by value {
+    value class Lyrics(val value: String) : CharSequence {
+        override fun get(index: Int): Char {
+            return value[index]
+        }
+
+        override fun subSequence(startIndex: Int, endIndex: Int): CharSequence {
+            return value.subSequence(
+                startIndex = startIndex,
+                endIndex = endIndex
+            )
+        }
+
+        override val length: Int
+            get() = value.length
+
         val sentences: List<Pair<Long, String>>
             get() = mutableListOf(0L to "").apply {
                 for (line in value.trim().lines()) {

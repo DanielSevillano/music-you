@@ -134,18 +134,13 @@
     <string name="synchronized_lyrics_not_available">Синхронизированный текст недоступен для этой песни</string>
     <string name="error_fetching_lyrics">Произошла ошибка при загрузке текста песни</string>
     <string name="error_fetching_synchronized_lyrics">Произошла ошибка при загрузке синхронизированного текста песни</string>
-
-    <string name="delete_playback_events">Удалить события воспроизведения</string>
-
+    <string name="delete_playback_events">Удалить %d событий воспроизведения</string>
     <string name="quick_picks_cleared">Рекомендации очищены</string>
-    <string name="delete_search_queries">Удалить поисковые запросы</string>
-
+    <string name="delete_search_queries">Удалить %d поисковых запросов</string>
     <string name="history_is_empty">История пуста</string>
     <string name="already_unrestricted">Уже без ограничений</string>
     <string name="disable_background_restrictions">Отключение фоновых ограничений</string>
-
     <string name="subscribers">Подписчики</string>
-
     <string name="home_error">Произошла ошибка</string>
     <string name="no_albums_artist">Этот исполнитель не выпустил ни одного альбома</string>
     <string name="no_singles_artist">Этот исполнитель не выпустил ни одного сингла.</string>

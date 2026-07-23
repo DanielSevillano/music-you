@@ -7,7 +7,7 @@
     <string name="albums">Альбомы</string>
     <string name="related_albums">Связанные альбомы</string>
     <string name="similar_artists">Похожие исполнители</string>
-    <string name="recommended_playlists">Плейлисты которые могут вам понравиться</string>
+    <string name="recommended_playlists">Плейлисты, которые могут вам понравиться</string>
     <string name="new_playlist">Новый плейлист</string>
     <string name="favorites">Избранные</string>
     <string name="offline">Офлайн</string>
@@ -48,7 +48,7 @@
     <string name="backup">Бэкап</string>
     <string name="restore">Восстановить</string>
     <string name="reset_quick_picks">Очистить рекомендации</string>
-    <string name="restore_information">После восстановления базы данных приложение автоматически перезагрузится и существующие данные будут перезаписаны.</string>
+    <string name="restore_information">После восстановления базы данных приложение автоматически закроется и существующие данные будут перезаписаны.</string>
     <string name="backup_description">Экспортировать данные во внешнее хранилище</string>
     <string name="restore_description">Импортировать данные из внешнего хранилища</string>
     <string name="service_lifetime">Время жизни службы</string>
@@ -60,7 +60,7 @@
     <string name="ignore_battery_optimizations">Игнорировать оптимизацию энергопотребления</string>
     <string name="service_lifetime_description">Когда выключение оптимизации энергопотребления недостаточно</string>
     <string name="service_lifetime_information">Если оптимизация энергопотребления включена, уведомление с музыкой может внезапно исчезнуть во время паузы.</string>
-    <string name="service_lifetime_information_plus">Начиная с Android 12, для активации функции \"Неуязвимый сервис\" необходимо отключить оптимизацию батареи.</string>
+    <string name="service_lifetime_information_plus">Начиная с Android 12, для активации функции \"Неуязвимый сервис\" необходимо отключить оптимизацию энергопотребления.</string>
     <string name="about">О приложении</string>
     <string name="search">Поиск</string>
     <string name="featured">Рекомендации</string>
@@ -191,12 +191,12 @@
     <string name="player_gestures">Жесты плеера</string>
     <string name="miniplayer_gestures">Жесты миниплеера</string>
     <string name="list_gestures">Жесты в списке</string>
-    <string name="player_gestures_description">Включает возможность переключения между песнями с помощью жестов.</string>
+    <string name="player_gestures_description">Включает возможность переключения между треками с помощью жестов.</string>
     <string name="list_gestures_description">Включает жесты для добавления треков в очередь или их удаления</string>
     <string name="copy">Копировать</string>
-    <string name="error_log">Ошибка логирования</string>
+    <string name="error_log">Журнал ошибок</string>
     <string name="featured_on">Где встречается</string>
-    <string name="fans_might_also_like">Фанатам так же нравится</string>
+    <string name="fans_might_also_like">Фанатам также нравится</string>
     <string name="no_related_albums">Связанных альбомов не найдено</string>
     <string name="delete_image_cache">Удалить кеш изображений?</string>
     <string name="unlimited">Неограниченно</string>

@@ -7,7 +7,7 @@
     <string name="albums">Альбомы</string>
     <string name="related_albums">Связанные альбомы</string>
     <string name="similar_artists">Похожие исполнители</string>
-    <string name="recommended_playlists">Плейлисты которые могут вам понравиться</string>
+    <string name="recommended_playlists">Плейлисты, которые могут вам понравиться</string>
     <string name="new_playlist">Новый плейлист</string>
     <string name="favorites">Избранные</string>
     <string name="offline">Офлайн</string>
@@ -25,30 +25,30 @@
     <string name="other_versions">Другие версии</string>
     <string name="videos">Видео</string>
     <string name="player">Плеер</string>
-    <string name="cache">Кэш</string>
+    <string name="cache">Кеш</string>
     <string name="database">Данные</string>
     <string name="other">Другое</string>
     <string name="persistent_queue">Постоянная очередь</string>
-    <string name="persistent_queue_description">Сохраняет и восстанавливает воспроизводимые треки</string>
+    <string name="persistent_queue_description">Сохранять и восстанавливать воспроизводимые треки</string>
     <string name="resume_playback">Возобновление воспроизведения</string>
     <string name="resume_playback_description">При подключении проводного или Bluetooth-устройства</string>
     <string name="skip_silence">Пропуск тишины</string>
     <string name="skip_silence_description">Пропускать моменты без звука</string>
     <string name="loudness_normalization">Нормализация звука</string>
-    <string name="loudness_normalization_description">Устанавливает громкость на фиксированном уровне</string>
+    <string name="loudness_normalization_description">Установить громкость на фиксированном уровне</string>
     <string name="equalizer">Эквалайзер</string>
     <string name="equalizer_description">Настроить системный эквалайзер</string>
     <string name="show_song_cover">Показывать обложку треков</string>
     <string name="show_song_cover_description">Использовать обложку трека как обои для экрана блокировки</string>
     <string name="settings">Настройки</string>
-    <string name="image_cache">Кэш изображений</string>
-    <string name="song_cache">Кэш музыки</string>
-    <string name="max_size">Макс. размер кэша</string>
-    <string name="cache_information">Когда в кэше заканчивается место, очищаются ресурсы, к которым не обращались дольше всего.</string>
+    <string name="image_cache">Кеш изображений</string>
+    <string name="song_cache">Кеш музыки</string>
+    <string name="max_size">Макс. размер кеша</string>
+    <string name="cache_information">Когда в кеше заканчивается место, очищаются ресурсы, к которым не обращались дольше всего.</string>
     <string name="backup">Бэкап</string>
     <string name="restore">Восстановить</string>
     <string name="reset_quick_picks">Очистить рекомендации</string>
-    <string name="restore_information">После восстановления базы данных приложение автоматически перезагрузится и существующие данные будут перезаписаны.</string>
+    <string name="restore_information">После восстановления базы данных приложение автоматически закроется и существующие данные будут перезаписаны.</string>
     <string name="backup_description">Экспортировать данные во внешнее хранилище</string>
     <string name="restore_description">Импортировать данные из внешнего хранилища</string>
     <string name="service_lifetime">Время жизни службы</string>
@@ -60,7 +60,7 @@
     <string name="ignore_battery_optimizations">Игнорировать оптимизацию энергопотребления</string>
     <string name="service_lifetime_description">Когда выключение оптимизации энергопотребления недостаточно</string>
     <string name="service_lifetime_information">Если оптимизация энергопотребления включена, уведомление с музыкой может внезапно исчезнуть во время паузы.</string>
-    <string name="service_lifetime_information_plus">Начиная с Android 12, для активации функции \"Неуязвимый сервис\" необходимо отключить оптимизацию батареи.</string>
+    <string name="service_lifetime_information_plus">Начиная с Android 12, для активации функции \"Неуязвимый сервис\" необходимо отключить оптимизацию энергопотребления.</string>
     <string name="about">О приложении</string>
     <string name="search">Поиск</string>
     <string name="featured">Рекомендации</string>
@@ -114,7 +114,7 @@
     <string name="more_from">Больше от</string>
     <string name="stop_sleep_timer_dialog">Остановить таймер сна?</string>
     <string name="hide_song_dialog">Удалить?</string>
-    <string name="hide_song_dialog_description">Время воспроизведения и кэш будут очищены. Это действие необратимо.</string>
+    <string name="hide_song_dialog_description">Время воспроизведения и кеш будут очищены. Это действие необратимо.</string>
     <string name="delete_playlist_dialog">Удалить этот плейлист?</string>
     <string name="no_items_found">Не найдено</string>
     <string name="no_results_found">Результаты не найдены. Попробуйте изменить запрос или поискать в другой категории.</string>
@@ -134,38 +134,13 @@
     <string name="synchronized_lyrics_not_available">Синхронизированный текст недоступен для этой песни</string>
     <string name="error_fetching_lyrics">Произошла ошибка при загрузке текста песни</string>
     <string name="error_fetching_synchronized_lyrics">Произошла ошибка при загрузке синхронизированного текста песни</string>
-
-    <!-- Here we need plurals or leave the general option -->
-    <!--
-    <plurals name="delete_playback_events">
-        <item quantity="one">Удалить %d событие воспроизведения</item>
-        <item quantity="few">Удалить %d события воспроизведения</item>
-        <item quantity="many">Удалить %d событий воспроизведения</item>
-        <item quantity="other">Удалить %d события воспроизведения</item>
-    </plurals>
-    -->
-    <string name="delete_playback_events">Удалить события воспроизведения</string>
-
+    <string name="delete_playback_events">Удалить %d событий воспроизведения</string>
     <string name="quick_picks_cleared">Рекомендации очищены</string>
-
-    <!-- Here we need plurals or leave the general option -->
-    <!--
-    <plurals name="delete_search_queries">
-        <item quantity="one">Удалить %d поисковый запрос</item>
-        <item quantity="few">Удалить %d поисковых запроса</item>
-        <item quantity="many">Удалить %d поисковых запросов</item>
-        <item quantity="other">Удалить %d поисковых запроса</item>
-    </plurals>
-    -->
-    <string name="delete_search_queries">Удалить поисковые запросы</string>
-
+    <string name="delete_search_queries">Удалить %d поисковых запросов</string>
     <string name="history_is_empty">История пуста</string>
     <string name="already_unrestricted">Уже без ограничений</string>
     <string name="disable_background_restrictions">Отключение фоновых ограничений</string>
-
-    <!-- Idk, maybe we need plurals there too -->
     <string name="subscribers">Подписчики</string>
-
     <string name="home_error">Произошла ошибка</string>
     <string name="no_albums_artist">Этот исполнитель не выпустил ни одного альбома</string>
     <string name="no_singles_artist">Этот исполнитель не выпустил ни одного сингла.</string>
@@ -198,14 +173,14 @@
     <string name="close">Закрыть</string>
     <string name="bitrate">Битрейт</string>
     <string name="size">Размер</string>
-    <string name="cached">Кэшировано</string>
+    <string name="cached">Кешировано</string>
     <string name="loudness">Громкость</string>
     <string name="unknown">Неизвестно</string>
-    <string name="clear_cache">Очистить кэш</string>
-    <string name="navigation_bar_label_visibility">Видимость подписей к иконкам панели навигации</string>
-    <string name="visible">Видимы</string>
-    <string name="visible_when_active">Видимы у активного</string>
-    <string name="hidden">Скрыты</string>
+    <string name="clear_cache">Очистить кеш</string>
+    <string name="navigation_bar_label_visibility">Отображение надписей панели навигации</string>
+    <string name="visible">Включено</string>
+    <string name="visible_when_active">Только для активной вкладки</string>
+    <string name="hidden">Выключено</string>
     <string name="check_for_updates">Проверить наличие обновлений</string>
     <string name="checking_for_updates">Проверка наличия обновлений</string>
     <string name="new_version_available">Доступна новая версия</string>
@@ -216,13 +191,13 @@
     <string name="player_gestures">Жесты плеера</string>
     <string name="miniplayer_gestures">Жесты миниплеера</string>
     <string name="list_gestures">Жесты в списке</string>
-    <string name="player_gestures_description">Включает возможность переключения между песнями с помощью жестов.</string>
+    <string name="player_gestures_description">Включает возможность переключения между треками с помощью жестов.</string>
     <string name="list_gestures_description">Включает жесты для добавления треков в очередь или их удаления</string>
     <string name="copy">Копировать</string>
-    <string name="error_log">Ошибка логирования</string>
+    <string name="error_log">Журнал ошибок</string>
     <string name="featured_on">Где встречается</string>
-    <string name="fans_might_also_like">Фанатам так же нравится</string>
+    <string name="fans_might_also_like">Фанатам также нравится</string>
     <string name="no_related_albums">Связанных альбомов не найдено</string>
-    <string name="delete_image_cache">Delete image cache?</string>
-    <string name="unlimited">Unlimited</string>
+    <string name="delete_image_cache">Удалить кеш изображений?</string>
+    <string name="unlimited">Неограниченно</string>
 </resources>

@@ -25,7 +25,7 @@
     <string name="other_versions">Другие версии</string>
     <string name="videos">Видео</string>
     <string name="player">Плеер</string>
-    <string name="cache">Кэш</string>
+    <string name="cache">Кеш</string>
     <string name="database">Данные</string>
     <string name="other">Другое</string>
     <string name="persistent_queue">Постоянная очередь</string>
@@ -41,10 +41,10 @@
     <string name="show_song_cover">Показывать обложку треков</string>
     <string name="show_song_cover_description">Использовать обложку трека как обои для экрана блокировки</string>
     <string name="settings">Настройки</string>
-    <string name="image_cache">Кэш изображений</string>
-    <string name="song_cache">Кэш музыки</string>
-    <string name="max_size">Макс. размер кэша</string>
-    <string name="cache_information">Когда в кэше заканчивается место, очищаются ресурсы, к которым не обращались дольше всего.</string>
+    <string name="image_cache">Кеш изображений</string>
+    <string name="song_cache">Кеш музыки</string>
+    <string name="max_size">Макс. размер кеша</string>
+    <string name="cache_information">Когда в кеше заканчивается место, очищаются ресурсы, к которым не обращались дольше всего.</string>
     <string name="backup">Бэкап</string>
     <string name="restore">Восстановить</string>
     <string name="reset_quick_picks">Очистить рекомендации</string>
@@ -114,7 +114,7 @@
     <string name="more_from">Больше от</string>
     <string name="stop_sleep_timer_dialog">Остановить таймер сна?</string>
     <string name="hide_song_dialog">Удалить?</string>
-    <string name="hide_song_dialog_description">Время воспроизведения и кэш будут очищены. Это действие необратимо.</string>
+    <string name="hide_song_dialog_description">Время воспроизведения и кеш будут очищены. Это действие необратимо.</string>
     <string name="delete_playlist_dialog">Удалить этот плейлист?</string>
     <string name="no_items_found">Не найдено</string>
     <string name="no_results_found">Результаты не найдены. Попробуйте изменить запрос или поискать в другой категории.</string>
@@ -178,10 +178,10 @@
     <string name="close">Закрыть</string>
     <string name="bitrate">Битрейт</string>
     <string name="size">Размер</string>
-    <string name="cached">Кэшировано</string>
+    <string name="cached">Кешировано</string>
     <string name="loudness">Громкость</string>
     <string name="unknown">Неизвестно</string>
-    <string name="clear_cache">Очистить кэш</string>
+    <string name="clear_cache">Очистить кеш</string>
     <string name="navigation_bar_label_visibility">Отображение надписей панели навигации</string>
     <string name="visible">Включено</string>
     <string name="visible_when_active">Только для активной вкладки</string>
@@ -203,6 +203,6 @@
     <string name="featured_on">Где встречается</string>
     <string name="fans_might_also_like">Фанатам так же нравится</string>
     <string name="no_related_albums">Связанных альбомов не найдено</string>
-    <string name="delete_image_cache">Удалить кэш изображений?</string>
+    <string name="delete_image_cache">Удалить кеш изображений?</string>
     <string name="unlimited">Неограниченно</string>
 </resources>

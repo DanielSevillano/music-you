@@ -7,11 +7,16 @@ plugins {
 
 android {
     namespace = "com.github.musicyou"
-    compileSdk = 37
+
+    compileSdk {
+        version = release(version = 37) {
+            minorApiLevel = 2
+        }
+    }
 
     defaultConfig {
         applicationId = "com.github.musicyou"
-        minSdk = 23
+        minSdk = 24
         versionCode = 16
         versionName = "1.1.2"
     }

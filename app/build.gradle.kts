@@ -74,6 +74,7 @@ dependencies {
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.util)
     implementation(libs.core.splashscreen)
+    implementation(libs.lazy.column.scrollbar)
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.material.motion.compose)
     implementation(libs.media)

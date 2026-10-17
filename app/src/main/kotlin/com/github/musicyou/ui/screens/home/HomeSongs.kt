@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.PlaylistPlay
 import androidx.compose.material.icons.outlined.Delete
@@ -68,6 +69,8 @@ import com.github.musicyou.utils.songSortByKey
 import com.github.musicyou.utils.songSortOrderKey
 import com.github.musicyou.viewmodels.HomeSongsViewModel
 import kotlinx.coroutines.launch
+import my.nanihadesuka.compose.LazyVerticalGridScrollbar
+import my.nanihadesuka.compose.ScrollbarSettings
 
 @OptIn(UnstableApi::class)
 @Composable
@@ -86,6 +89,7 @@ fun HomeSongs(
 
     val viewModel: HomeSongsViewModel = viewModel()
     val scope = rememberCoroutineScope()
+    val gridState = rememberLazyGridState()
     val snackbarHostState = remember { SnackbarHostState() }
     val snackbarMessage = stringResource(id = R.string.song_deleted_library)
     val snackBarActionLabel = stringResource(id = R.string.undo)
@@ -127,115 +131,125 @@ fun HomeSongs(
         openSearch = openSearch,
         openSettings = openSettings
     ) {
-        LazyVerticalGrid(
-            columns = GridCells.Adaptive(minSize = 400.dp),
-            contentPadding = PaddingValues(bottom = if (viewModel.items.isNotEmpty()) 16.dp + 72.dp + playerPadding else 16.dp + playerPadding),
-            modifier = Modifier.fillMaxSize()
+        LazyVerticalGridScrollbar(
+            state = gridState,
+            modifier = Modifier.padding(bottom = playerPadding),
+            settings = ScrollbarSettings(
+                thumbUnselectedColor = MaterialTheme.colorScheme.primary,
+                thumbSelectedColor = MaterialTheme.colorScheme.primaryContainer
+            )
         ) {
-            item(
-                key = "header",
-                span = { GridItemSpan(maxLineSpan) }
+            LazyVerticalGrid(
+                columns = GridCells.Adaptive(minSize = 400.dp),
+                state = gridState,
+                contentPadding = PaddingValues(bottom = if (viewModel.items.isNotEmpty()) 16.dp + 72.dp else 16.dp),
+                modifier = Modifier.fillMaxSize()
             ) {
-                SortingHeader(
-                    sortBy = sortBy,
-                    changeSortBy = { sortBy = it },
-                    sortByEntries = SongSortBy.entries.toList(),
-                    sortOrder = sortOrder,
-                    toggleSortOrder = { sortOrder = !sortOrder },
-                    size = viewModel.items.size,
-                    itemCountText = R.plurals.number_of_songs
-                )
-            }
+                item(
+                    key = "header",
+                    span = { GridItemSpan(currentLineSpan = maxLineSpan) }
+                ) {
+                    SortingHeader(
+                        sortBy = sortBy,
+                        changeSortBy = { sortBy = it },
+                        sortByEntries = SongSortBy.entries.toList(),
+                        sortOrder = sortOrder,
+                        toggleSortOrder = { sortOrder = !sortOrder },
+                        size = viewModel.items.size,
+                        itemCountText = R.plurals.number_of_songs
+                    )
+                }
 
-            itemsIndexed(
-                items = viewModel.items,
-                key = { _, song -> song.id }
-            ) { index, song ->
-                SwipeToActionBox(
-                    modifier = Modifier.animateItem(),
-                    primaryAction = ActionInfo(
-                        onClick = { binder?.player?.enqueue(song.asMediaItem) },
-                        icon = Icons.AutoMirrored.Outlined.PlaylistPlay,
-                        description = R.string.enqueue
-                    ),
-                    destructiveAction = ActionInfo(
-                        onClick = {
-                            database.query {
-                                binder?.cache?.removeResource(song.id)
-                                database.incrementTotalPlayTimeMs(
-                                    id = song.id,
-                                    addition = -song.totalPlayTimeMs
-                                )
-                            }
+                itemsIndexed(
+                    items = viewModel.items,
+                    key = { _, song -> song.id }
+                ) { index, song ->
+                    SwipeToActionBox(
+                        modifier = Modifier.animateItem(),
+                        primaryAction = ActionInfo(
+                            onClick = { binder?.player?.enqueue(song.asMediaItem) },
+                            icon = Icons.AutoMirrored.Outlined.PlaylistPlay,
+                            description = R.string.enqueue
+                        ),
+                        destructiveAction = ActionInfo(
+                            onClick = {
+                                database.query {
+                                    binder?.cache?.removeResource(song.id)
+                                    database.incrementTotalPlayTimeMs(
+                                        id = song.id,
+                                        addition = -song.totalPlayTimeMs
+                                    )
+                                }
 
-                            scope.launch {
-                                snackbarHostState.currentSnackbarData?.dismiss()
+                                scope.launch {
+                                    snackbarHostState.currentSnackbarData?.dismiss()
 
-                                val result = snackbarHostState.showSnackbar(
-                                    message = snackbarMessage,
-                                    actionLabel = snackBarActionLabel,
-                                    withDismissAction = true,
-                                    duration = SnackbarDuration.Short
-                                )
+                                    val result = snackbarHostState.showSnackbar(
+                                        message = snackbarMessage,
+                                        actionLabel = snackBarActionLabel,
+                                        withDismissAction = true,
+                                        duration = SnackbarDuration.Short
+                                    )
 
-                                if (result == SnackbarResult.ActionPerformed) {
-                                    database.query {
-                                        database.insert(song = song)
-                                        database.incrementTotalPlayTimeMs(
-                                            id = song.id,
-                                            addition = song.totalPlayTimeMs
-                                        )
+                                    if (result == SnackbarResult.ActionPerformed) {
+                                        database.query {
+                                            database.insert(song = song)
+                                            database.incrementTotalPlayTimeMs(
+                                                id = song.id,
+                                                addition = song.totalPlayTimeMs
+                                            )
+                                        }
                                     }
                                 }
-                            }
-                        },
-                        icon = Icons.Outlined.Delete,
-                        description = R.string.hide
-                    )
-                ) {
-                    LocalSongItem(
-                        song = song,
-                        onClick = {
-                            binder?.stopRadio()
-                            binder?.player?.forcePlayAtIndex(
-                                viewModel.items.map(Song::asMediaItem),
-                                index
-                            )
-                        },
-                        onLongClick = {
-                            menuState.display {
-                                InHistoryMediaItemMenu(
-                                    song = song,
-                                    onDismiss = menuState::hide,
-                                    onGoToAlbum = onGoToAlbum,
-                                    onGoToArtist = onGoToArtist
+                            },
+                            icon = Icons.Outlined.Delete,
+                            description = R.string.hide
+                        )
+                    ) {
+                        LocalSongItem(
+                            song = song,
+                            onClick = {
+                                binder?.stopRadio()
+                                binder?.player?.forcePlayAtIndex(
+                                    viewModel.items.map(Song::asMediaItem),
+                                    index
                                 )
-                            }
-                        },
-                        onThumbnailContent = if (sortBy == SongSortBy.PlayTime) ({
-                            Text(
-                                text = song.formattedTotalPlayTime,
-                                style = MaterialTheme.typography.labelMedium,
-                                color = MaterialTheme.colorScheme.onOverlay,
-                                maxLines = 2,
-                                overflow = TextOverflow.Ellipsis,
-                                textAlign = TextAlign.Center,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .background(
-                                        brush = Brush.verticalGradient(
-                                            colors = listOf(
-                                                Color.Transparent,
-                                                MaterialTheme.colorScheme.overlay
-                                            )
-                                        ),
-                                        shape = MaterialTheme.shapes.medium
+                            },
+                            onLongClick = {
+                                menuState.display {
+                                    InHistoryMediaItemMenu(
+                                        song = song,
+                                        onDismiss = menuState::hide,
+                                        onGoToAlbum = onGoToAlbum,
+                                        onGoToArtist = onGoToArtist
                                     )
-                                    .padding(horizontal = 8.dp, vertical = 4.dp)
-                                    .align(Alignment.BottomCenter)
-                            )
-                        }) else null
-                    )
+                                }
+                            },
+                            onThumbnailContent = if (sortBy == SongSortBy.PlayTime) ({
+                                Text(
+                                    text = song.formattedTotalPlayTime,
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = MaterialTheme.colorScheme.onOverlay,
+                                    maxLines = 2,
+                                    overflow = TextOverflow.Ellipsis,
+                                    textAlign = TextAlign.Center,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .background(
+                                            brush = Brush.verticalGradient(
+                                                colors = listOf(
+                                                    Color.Transparent,
+                                                    MaterialTheme.colorScheme.overlay
+                                                )
+                                            ),
+                                            shape = MaterialTheme.shapes.medium
+                                        )
+                                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                                        .align(Alignment.BottomCenter)
+                                )
+                            }) else null
+                        )
+                    }
                 }
             }
         }

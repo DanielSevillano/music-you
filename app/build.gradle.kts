@@ -17,8 +17,8 @@ android {
     defaultConfig {
         applicationId = "com.github.musicyou"
         minSdk = 24
-        versionCode = 16
-        versionName = "1.1.2"
+        versionCode = 17
+        versionName = "1.1.3"
     }
 
     splits {

@@ -1,8 +1,5 @@
 package com.github.innertube.requests
 
-import io.ktor.client.call.body
-import io.ktor.client.request.post
-import io.ktor.client.request.setBody
 import com.github.innertube.Innertube
 import com.github.innertube.models.BrowseResponse
 import com.github.innertube.models.MusicCarouselShelfRenderer
@@ -13,6 +10,9 @@ import com.github.innertube.utils.findSectionByStrapline
 import com.github.innertube.utils.findSectionByTitle
 import com.github.innertube.utils.from
 import com.github.innertube.utils.runCatchingNonCancellable
+import io.ktor.client.call.body
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
 
 suspend fun Innertube.relatedPage(videoId: String) = runCatchingNonCancellable {
     val nextResponse = client.post(NEXT) {
@@ -26,7 +26,7 @@ suspend fun Innertube.relatedPage(videoId: String) = runCatchingNonCancellable {
         ?.tabbedRenderer
         ?.watchNextTabbedResultsRenderer
         ?.tabs
-        ?.getOrNull(2)
+        ?.getOrNull(3)
         ?.tabRenderer
         ?.endpoint
         ?.browseEndpoint
@@ -72,6 +72,6 @@ suspend fun Innertube.relatedPage(videoId: String) = runCatchingNonCancellable {
             ?.musicCarouselShelfRenderer
             ?.contents
             ?.mapNotNull(MusicCarouselShelfRenderer.Content::musicTwoRowItemRenderer)
-            ?.mapNotNull(Innertube.ArtistItem::from),
+            ?.mapNotNull(Innertube.ArtistItem::from)
     )
 }

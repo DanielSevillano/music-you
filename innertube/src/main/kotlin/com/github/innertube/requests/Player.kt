@@ -41,7 +41,7 @@ suspend fun Innertube.player(videoId: String) = runCatchingNonCancellable {
         val safePlayerResponse = client.post(PLAYER) {
             setBody(
                 PlayerBody(
-                    context = YouTubeClient.TVHTML5_SIMPLY_EMBEDDED_PLAYER.toContext().copy(
+                    context = YouTubeClient.WEB_EMBEDDED_PLAYER.toContext().copy(
                         thirdParty = Context.ThirdParty(
                             embedUrl = "https://www.youtube.com/watch?v=$videoId"
                         )

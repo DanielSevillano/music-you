@@ -44,12 +44,11 @@ class YouTubeClient(
             osVersion = "26.5.23O47",
         )
 
-        val TVHTML5_SIMPLY_EMBEDDED_PLAYER = YouTubeClient(
-            clientName = "TVHTML5_SIMPLY_EMBEDDED_PLAYER",
-            clientVersion = "2.0",
-            clientId = "85",
-            platform = "TV",
-            userAgent = "Mozilla/5.0 (PlayStation; PlayStation 4/12.02) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15"
+        val WEB_EMBEDDED_PLAYER = YouTubeClient(
+            clientName = "WEB_EMBEDDED_PLAYER",
+            clientVersion = "2.20260708.00.00",
+            clientId = "56",
+            userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.5 Safari/605.1.15,gzip(gfe)"
         )
     }
 }

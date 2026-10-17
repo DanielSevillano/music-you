@@ -81,7 +81,21 @@ fun Navigation(
                 targetDestination = targetState.destination,
                 slideDistance = slideDistance
             )
-        }
+        },
+        predictivePopEnterTransition = {
+            NavigationTransitions.popEnterTransition(
+                initialDestination = initialState.destination,
+                targetDestination = targetState.destination,
+                slideDistance = slideDistance
+            )
+        },
+        predictivePopExitTransition = {
+            NavigationTransitions.popExitTransition(
+                initialDestination = initialState.destination,
+                targetDestination = targetState.destination,
+                slideDistance = slideDistance
+            )
+        },
     ) {
         val navigateToAlbum = { browseId: String ->
             navController.navigate(route = Routes.Album(id = browseId))
